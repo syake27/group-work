@@ -1,0 +1,15 @@
+{% extends "saving/base.html" %}
+{% load static %}
+
+{% block title %}ホーム{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'saving/home.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="home-container">
+    <h1>ホーム画面</h1>
+    <p>ここにこのページの内容を入れる</p>
+</div>
+{% endblock %}
