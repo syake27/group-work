@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    {% load static %}
+    <!-- 共通css -->
+    <link rel="stylesheet" href="{% static 'saving/reset.css' %}">
+    <link rel="stylesheet" href="{% static 'saving/base.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <!-- 子ページcss -->
+    {% block extra_css %}{% endblock %}
+</head>
+
+<body>
+    <div class="app-container">
+        <main>
+            {% block content %}{% endblock %}
+        </main>
+        <nav class="bottom-nav">
+            <a href="/home" class="bottom-nav-item"><i class="fa-solid fa-house"></i></a>
+            <a href="/social" class="bottom-nav-item"><i class="fa-solid fa-compass"></i></a>
+            <a href="/pet" class="bottom-nav-item add-btn"><i class="fa-solid fa-paw"></i></a>
+            <a href="/saving" class="bottom-nav-item"><i class="fa-solid fa-piggy-bank"></i></a>
+            <a href="/profile" class="bottom-nav-item"><i class="fa-solid fa-user"></i></a>
+        </nav>
+    </div>
+</body>
+
+</html>
