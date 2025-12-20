@@ -16,14 +16,16 @@
 
 <body>
     <div class="app-container">
+        <header class="app-header">
+            <h1>{% block header_title %}{% endblock %}</h1>
+        </header>
         <main>
             {% block content %}{% endblock %}
         </main>
         <nav class="bottom-nav">
             <a href="/home" class="bottom-nav-item"><i class="fa-solid fa-house"></i></a>
-            <a href="/social" class="bottom-nav-item"><i class="fa-solid fa-compass"></i></a>
-            <a href="/pet" class="bottom-nav-item add-btn"><i class="fa-solid fa-paw"></i></a>
             <a href="/saving" class="bottom-nav-item"><i class="fa-solid fa-piggy-bank"></i></a>
+            <a href="/ranking"><i class="fa-solid fa-ranking-star"></i></a>
             <a href="/profile" class="bottom-nav-item"><i class="fa-solid fa-user"></i></a>
         </nav>
     </div>
