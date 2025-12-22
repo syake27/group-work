@@ -1,4 +1,195 @@
-h1 {
-    font-size: 2.5rem;
-    text-align: center;
+.home-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(45%, 1fr));
+  gap: 8px;
+}
+h2 {
+  font-size: 1.3rem;
+  padding: 10px 8px;
+  background-color: yellow;
+  text-align: center;
+  border-radius: 100px;
+  color: #af8118;
+  background: linear-gradient(90deg, #f8e6bc, #fff);
+  border: 1px solid #d3d3d3;
+  margin: 30px 0 10px;
+  font-weight: 500;
+}
+h3 {
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+.card {
+  background-color: #fbf9f2;
+  border: 1px solid #d3d3d3;
+  border-radius: 20px;
+  padding: 20px 10px;
+  text-align: center;
+}
+
+/* 
+今日の貯金額 
+*****************************************/
+.amount-box {
+  display: flex;
+  color: #af841f;
+  font-weight: bold;
+  justify-content: center;
+  align-items: baseline;
+  border-bottom: 1px solid #d3d3d3;
+}
+.amount-value {
+  font-size: 1.5rem;
+  padding-bottom: 8px;
+}
+.amount-symbol {
+  font-size: 1.2rem;
+}
+.saving-days {
+  margin: 8px 0;
+  display: flex;
+  justify-content: center;
+}
+.saving-count {
+  font-weight: bold;
+}
+.saving-label {
+  align-items: baseline;
+}
+.saving-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 48px;
+  background: linear-gradient(180deg, #d7df5f, #c59517);
+  border-radius: 10px;
+  border: 2px solid #c3a961;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #fff;
+}
+.btn-plus {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 6px;
+}
+
+/* 
+貯金目標
+*****************************************/
+.goal-amount-box,
+.saved-amount-box {
+  display: flex;
+  color: #af841f;
+  font-weight: bold;
+  justify-content: center;
+  align-items: baseline;
+  border-bottom: 1px solid #d3d3d3;
+}
+.goal-amount-symbol,
+.saved-amount-symbol {
+  font-size: 1.2rem;
+}
+.goal-amount-value,
+.saved-amount-value {
+  font-size: 1.5rem;
+  padding-bottom: 8px;
+}
+
+/* 円グラフ */
+.circle-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10px;
+}
+.progress-circle {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  /* --- 達成率（CSS変数 --rate を使用）--- */
+  background: conic-gradient(
+    #d7a640 calc(var(--rate) * 1deg * 3.6),
+    #e5e5e5 calc(var(--rate) * 1deg * 3.6)
+  );
+}
+.progress-inner {
+  width: 95px;
+  height: 95px;
+  background: white;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.progress-label {
+  font-size: 0.9rem;
+}
+.progress-text {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+.saving-title {
+  margin-top: 8px;
+}
+/* 
+貯金履歴
+*****************************************/
+.history-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  border-bottom: 1px solid #d3d3d3;
+  padding: 8px 0;
+}
+.history-main {
+  display: flex;
+  gap: 8px;
+}
+.history-amount {
+  font-weight: bold;
+  color: #af841f;
+}
+.history-item.open .history-toggle {
+  transform: rotate(180deg);
+}
+.history-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease;
+  background: #fbf9f2;
+}
+.history-toggle {
+  transition: transform 0.3s ease;
+}
+.history-body-inner {
+  padding: 8px 0;
+}
+.history-item.open .history-body {
+  max-height: 200px;
+}
+.history-detail-list li {
+  position: relative;
+  padding-left: 16px;
+  margin-bottom: 6px;
+  color: #555;
+  text-align: left;
+}
+.history-detail-list li::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  background: #d7a640;
+  border-radius: 50%;
+  position: absolute;
+  left: 0;
+  top: 6px;
 }
