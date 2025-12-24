@@ -1,0 +1,20 @@
+{% extends "saving/base.html" %}
+{% load static %}
+
+{% block title %}気分貯金{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'saving/feeling.css' %}">
+{% endblock %}
+
+{% block header_title %}貯金{% endblock %}
+
+{% block content %}
+<h1>今日の気分を選んでください</h1>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" name="mood" value="happy">😄</button>
+    <button type="submit" name="mood" value="neutral">😐</button>
+    <button type="submit" name="mood" value="sad">😩</button>
+</form>
+{% endblock %}

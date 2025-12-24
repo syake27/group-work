@@ -1,4 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from .models import MoodRecord
+from django.db.models import Sum
+from django.views.decorators.http import require_POST
 
 # Create your views here.
 
@@ -9,3 +12,9 @@ def home(request):
 
 def base(request):
     return render(request, "saving/base.html")
+
+
+def feeling(request):
+    return render(request, "saving/feeling.html")
+
+
