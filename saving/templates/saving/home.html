@@ -11,95 +11,188 @@
 
 {% block content %}
 <div class="home-container">
-    <div class="saving-today-box">
-        <h2>今日の貯金額</h2>
-        <div class="saving-today-card card">
-            <h3>本日の貯金額</h3>
-            <div class="amount-box">
-                <p class="amount-symbol">¥</p>
-                <p class="amount-value">3,500</p>
+    <div class="home-top-row">
+        <div class="saving-today-box">
+            <h2>今日の貯金額</h2>
+            <div class="saving-today-card card">
+                <h3>本日の貯金額</h3>
+                <div class="amount-box">
+                    <p class="amount-symbol">¥</p>
+                    <p class="amount-value">3,500</p>
+                </div>
+                <h3 class="saving-title">今月の貯金額</h3>
+                <div class="amount-box">
+                    <p class="amount-symbol">¥</p>
+                    <p class="amount-value">3,500</p>
+                </div>
+                <div class="saving-days">
+                    <p class="saving-count">10</p>
+                    <p class="saving-label">日貯金しました</p>
+                </div>
+                <a href="#" class="saving-btn">
+                    <span class="btn-plus">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                            <path d="M12 4v16M4 12h16" stroke="#ffffff" stroke-width="3" stroke-linecap="round" />
+                        </svg>
+                    </span>
+                    貯金する
+                </a>
             </div>
-            <h3 class="saving-title">今月の貯金額</h3>
-            <div class="amount-box">
-                <p class="amount-symbol">¥</p>
-                <p class="amount-value">3,500</p>
-            </div>
-            <div class="saving-days">
-                <p class="saving-count">10</p>
-                <p class="saving-label">日貯金しました</p>
-            </div>
-            <a href="#" class="saving-btn">
-                <span class="btn-plus">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-                        <path d="M12 4v16M4 12h16" stroke="#ffffff" stroke-width="3" stroke-linecap="round" />
-                    </svg>
-                </span>
-                貯金する
-            </a>
         </div>
-    </div>
-    <div class="saving-goal-box">
-        <h2>貯金目標</h2>
-        <div class="saving-goal-card card">
-            <h3>目標金額</h3>
-            <div class="goal-amount-box">
-                <p class="goal-amount-symbol">¥</p>
-                <p class="goal-amount-value">100,000</p>
-            </div>
-            <h3 class="saving-title">貯金金額</h3>
-            <div class="saved-amount-box">
-                <p class="saved-amount-symbol">¥</p>
-                <p class="saved-amount-value">25,000</p>
-            </div>
-            <div class="circle-wrapper">
-                <div class="progress-circle" style="--rate: 25;">
-                    <div class="progress-inner">
-                        <p class="progress-label">達成率</p>
-                        <p class="progress-text">25%</p>
+        <div class="saving-goal-box">
+            <h2>貯金目標</h2>
+            <div class="saving-goal-card card">
+                <h3>目標金額</h3>
+                <div class="goal-amount-box">
+                    <p class="goal-amount-symbol">¥</p>
+                    <p class="goal-amount-value">100,000</p>
+                </div>
+                <h3 class="saving-title">貯金金額</h3>
+                <div class="saved-amount-box">
+                    <p class="saved-amount-symbol">¥</p>
+                    <p class="saved-amount-value">25,000</p>
+                </div>
+                <div class="circle-wrapper">
+                    <div class="progress-circle" style="--rate: 25;">
+                        <div class="progress-inner">
+                            <p class="progress-label">達成率</p>
+                            <p class="progress-text">25%</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <div class="saving-history-box">
-        <h2>貯金履歴</h2>
-        <div class="saving-history-card card">
-            <ul class="history-list">
-                <li class="history-item">
-                    <div class="history-header">
-                        <div class="history-main">
-                            <p class="history-date">06/01</p>
-                            <p class="history-amount">¥3,500</p>
-                        </div>
-                        <i class="fa-solid fa-angle-down history-toggle"></i>
-                    </div>
-                    <div class="history-body">
-                        <div class="history-body-inner">
-                            <ul class="history-detail-list">
-                                <li>じゃんけん貯金</li>
-                                <li>歩数貯金</li>
-                            </ul>
-                        </div>
-                    </div>
-                </li>
-            </ul>
-
+        <div class="saving-tabs">
+            <button class="tab-btn active" data-tab="history">貯金履歴</button>
+            <button class="tab-btn" data-tab="progress">進捗グラフ</button>
+        </div>
+        <div class="tab-contents">
+            <!-- 貯金履歴 -->
+            <div class="tab-content active" id="history">
+                <div class="saving-history-card card">
+                    <ul class="history-list">
+                        <li class="history-item">
+                            <div class="history-header">
+                                <div class="history-main">
+                                    <p class="history-date">06/01</p>
+                                    <p class="history-amount">¥3,500</p>
+                                </div>
+                                <i class="fa-solid fa-angle-down history-toggle"></i>
+                            </div>
+                            <div class="history-body">
+                                <div class="history-body-inner">
+                                    <ul class="history-detail-list">
+                                        <li>
+                                            <div class="detail-item">
+                                                <div>
+                                                    <p class="detail-label">じゃんけん貯金</p>
+                                                </div>
+                                                <div>
+                                                    <p class="detail-value">¥1,500</p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="detail-item">
+                                                <div>
+                                                    <p class="detail-label">じゃんけん貯金</p>
+                                                </div>
+                                                <div>
+                                                    <p class="detail-value">¥1,500</p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="history-item">
+                            <div class="history-header">
+                                <div class="history-main">
+                                    <p class="history-date">06/01</p>
+                                    <p class="history-amount">¥3,500</p>
+                                </div>
+                                <i class="fa-solid fa-angle-down history-toggle"></i>
+                            </div>
+                            <div class="history-body">
+                                <div class="history-body-inner">
+                                    <ul class="history-detail-list">
+                                        <li>
+                                            <div class="detail-item">
+                                                <div>
+                                                    <p class="detail-label">じゃんけん貯金</p>
+                                                </div>
+                                                <div>
+                                                    <p class="detail-value">¥1,500</p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="detail-item">
+                                                <div>
+                                                    <p class="detail-label">じゃんけん貯金</p>
+                                                </div>
+                                                <div>
+                                                    <p class="detail-value">¥1,500</p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- 進捗グラフ -->
+            <div class="tab-content" id="progress">
+                <div class="saving-progress-card card">
+                    <p>ここに進捗グラフを表示</p>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="saving-progress-box">
+
+    <!-- <div class="saving-progress-box">
         <h2>進捗グラフ</h2>
         <div class="saving-progress-card card">
             <p>進捗のグラフを載せる</p>
         </div>
-    </div>
+    </div> -->
 </div>
 {% endblock %}
 {% block extra_js %}
 <script>
-    document.querySelectorAll('.history-header').forEach(header => {
-        header.addEventListener('click', () => {
-            header.parentElement.classList.toggle('open');
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    tabButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            tabButtons.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            const target = btn.dataset.tab;
+            tabContents.forEach(content => {
+                content.classList.toggle('active', content.id === target);
+            });
         });
     });
+
+
+    document.querySelectorAll('.history-header').forEach(header => {
+        header.addEventListener('click', () => {
+            const item = header.parentElement;
+            const isOpen = item.classList.contains('open');
+            document.querySelectorAll('.history-item')
+                .forEach(i => i.classList.remove('open'));
+            if (!isOpen) {
+                item.classList.add('open');
+            }
+        });
+    });
+
+
 </script>
 {% endblock %}

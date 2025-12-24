@@ -1,6 +1,6 @@
-.home-container {
+.home-top-row {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(45%, 1fr));
+  grid-template-columns: repeat(2, 1fr);
   gap: 8px;
 }
 h2 {
@@ -192,4 +192,38 @@ h3 {
   position: absolute;
   left: 0;
   top: 6px;
+  margin: 8px 0;
+}
+.saving-tabs {
+  background-color: #f8e6bc;
+  padding: 6px 8px;
+  justify-content: space-between;
+  display: flex;
+  border-radius: 100px;
+  margin-bottom: 10px;
+  border: 1px solid #d3d3d3;
+}
+.tab-btn{
+  width: 50%;
+  background-color: #f8e6bc;
+  text-align: center;
+  font-size: 1.3rem;
+  font-weight: 500;
+  padding: 6px 0;
+  border-radius: 100px;
+  color: #af8118;
+}
+.tab-btn.active{
+  background-color: #fff;
+}
+.tab-content {
+  display: none;
+}
+.tab-content.active {
+  display: block;
+}
+.detail-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;;
 }
