@@ -9,3 +9,7 @@ def home(request):
 
 def base(request):
     return render(request, "saving/base.html")
+
+
+def roulette(request):
+    return render(request, "saving/roulette.html")
