@@ -18,3 +18,5 @@ def feeling(request):
     return render(request, "saving/feeling.html")
 
 
+def saving_list(request):
+    return render(request, "saving/saving-list.html")
