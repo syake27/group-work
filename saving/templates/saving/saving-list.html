@@ -1,0 +1,29 @@
+{% extends "saving/base.html" %}
+{% load static %}
+
+{% block title %}貯金リスト{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'saving/saving-list.css' %}">
+{% endblock %}
+
+{% block header_title %}貯金方法{% endblock %}
+
+{% block content %}
+<div class="home-container">
+    <ul>
+        <li class="saving-item">
+            <a href="#">気分貯金</a>
+        </li>
+        <li class="saving-item">
+            <a href="#">ルーレット貯金</a>
+        </li>
+        <li class="saving-item">
+            <a href="#">じゃんけん貯金</a>
+        </li>
+        <li class="saving-item">
+            <a href="#">ペット育成貯金</a>
+        </li>
+    </ul>
+</div>
+{% endblock %}
