@@ -13,3 +13,11 @@ def base(request):
 
 def saving_list(request):
     return render(request, "saving/saving-list.html")
+
+
+def ranking(request):
+    return render(request, "saving/ranking.html")
+
+
+def profile(request):
+    return render(request, "saving/profile.html")
