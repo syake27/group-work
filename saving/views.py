@@ -9,3 +9,7 @@ def home(request):
 
 def base(request):
     return render(request, "saving/base.html")
+
+
+def saving_list(request):
+    return render(request, "saving/saving-list.html")
