@@ -1,0 +1,20 @@
+{% extends "saving/base.html" %}
+{% load static %}
+
+{% block title %}ジャンケン貯金{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'saving/rps.css' %}">
+{% endblock %}
+
+{% block header_title %}ジャンケン貯金{% endblock %}
+
+{% block content %}
+<h1>好きな手を選んでください</h1>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" name="hand" value="グー">✊</button>
+    <button type="submit" name="hand" value="チョキ">✌️</button>
+    <button type="submit" name="hand" value="パー">✋</button>
+</form>
+{% endblock %}

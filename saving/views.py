@@ -20,3 +20,7 @@ def feeling(request):
 
 def saving_list(request):
     return render(request, "saving/saving-list.html")
+
+
+def rps(request):
+    return render(request, "saving/rps.html")

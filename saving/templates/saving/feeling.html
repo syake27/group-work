@@ -7,14 +7,14 @@
 <link rel="stylesheet" href="{% static 'saving/feeling.css' %}">
 {% endblock %}
 
-{% block header_title %}貯金{% endblock %}
+{% block header_title %}気分貯金{% endblock %}
 
 {% block content %}
 <h1>今日の気分を選んでください</h1>
 <form method="post">
     {% csrf_token %}
-    <button type="submit" name="mood" value="happy">😄</button>
-    <button type="submit" name="mood" value="neutral">😐</button>
-    <button type="submit" name="mood" value="sad">😩</button>
+    <button type="submit" name="mood" value="元気！！">😄</button>
+    <button type="submit" name="mood" value="普通">😐</button>
+    <button type="submit" name="mood" value="悲しい、、">😩</button>
 </form>
 {% endblock %}
