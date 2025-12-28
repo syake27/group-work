@@ -2,8 +2,19 @@ from django.shortcuts import render, redirect
 from .models import MoodRecord
 from django.db.models import Sum
 from django.views.decorators.http import require_POST
+from django.contrib.auth.forms import UserCreationForm
 
-# Create your views here.
+
+def signup(request):
+    if request.method == "POST":
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("login")
+    else:
+        form = UserCreationForm()
+
+    return render(request, "saving/signup.html", {"form": form})
 
 
 def home(request):
@@ -24,3 +35,11 @@ def saving_list(request):
 
 def rps(request):
     return render(request, "saving/rps.html")
+
+
+def ranking(request):
+    return render(request, "saving/ranking.html")
+
+
+def profile(request):
+    return render(request, "saving/profile.html")

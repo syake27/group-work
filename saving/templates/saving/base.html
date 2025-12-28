@@ -26,10 +26,10 @@
             {% block content %}{% endblock %}
         </main>
         <nav class="bottom-nav">
-            <a href="/home" class="bottom-nav-item"><i class="fa-solid fa-house"></i></a>
-            <a href="/saving-list" class="bottom-nav-item"><i class="fa-solid fa-piggy-bank"></i></a>
-            <a href="/ranking"><i class="fa-solid fa-ranking-star"></i></a>
-            <a href="/profile" class="bottom-nav-item"><i class="fa-solid fa-user"></i></a>
+            <a href="{% url 'home' %}" class="bottom-nav-item"><i class="fa-solid fa-house"></i></a>
+            <a href="{% url 'saving_list' %}" class="bottom-nav-item"><i class="fa-solid fa-piggy-bank"></i></a>
+            <a href="{% url 'ranking' %}"><i class="fa-solid fa-ranking-star"></i></a>
+            <a href="{% url 'profile' %}" class="bottom-nav-item"><i class="fa-solid fa-user"></i></a>
         </nav>
     </div>
     {% block extra_js %}{% endblock %}
