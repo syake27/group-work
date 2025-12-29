@@ -10,8 +10,11 @@
 {% block header_title %}貯金方法{% endblock %}
 
 {% block content %}
-<div class="home-container">
+<div class="list-container">
     <ul>
+        <li class="saving-item">
+            <a href="{% url 'simple' %}">シンプル貯金</a>
+        </li>
         <li class="saving-item">
             <a href="{% url 'feeling' %}">気分貯金</a>
         </li>

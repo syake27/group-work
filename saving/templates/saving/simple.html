@@ -1,0 +1,53 @@
+{% extends "saving/base.html" %}
+{% load static %}
+
+{% block title %}シンプル貯金{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'saving/simple.css' %}">
+{% endblock %}
+
+{% block header_title %}シンプル貯金{% endblock %}
+
+{% block content %}
+<div class="simple-container">
+    <h1>貯金したい金額を入力してください</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="btn-group">
+            <button type="button" onclick="addAmount(1)">+1</button>
+            <button type="button" onclick="addAmount(10)">+10</button>
+            <button type="button" onclick="addAmount(100)">+100</button>
+            <button type="button" onclick="addAmount(1000)">+1000</button>
+            <button type="button" onclick="addAmount(10000)">+10000</button>
+        </div>
+
+        <div>
+            <input type="number" id="amount-input" name="amount" value="0" required>
+        </div>
+
+        <div class="btn-group">
+            <button type="button" onclick="addAmount(-1)">-1</button>
+            <button type="button" onclick="addAmount(-10)">-10</button>
+            <button type="button" onclick="addAmount(-100)">-100</button>
+            <button type="button" onclick="addAmount(-1000)">-1000</button>
+            <button type="button" onclick="addAmount(-10000)">-10000</button>
+        </div>
+
+        <button type="submit">貯金する</button>
+    </form>
+</div>
+{% endblock %}
+{% block extra_js %}
+<script>
+    function addAmount(value) {
+        const input = document.getElementById("amount-input");
+        let current = parseInt(input.value) || 0;
+
+        current += value;
+        if (current < 0) current = 0;
+
+        input.value = current;
+    }
+</script>
+{% endblock %}
