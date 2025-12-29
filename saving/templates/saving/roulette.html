@@ -15,9 +15,10 @@
 
 {% block content %}
 <div class="roulette-container">
-    <p id="amount">100</p>
+    <p id="amount">100円</p>
     <button id="roulette-btn">スタート</button>
 </div>
 
+<!-- JS読み込みはdeferで問題なし -->
 <script src="{% static 'saving/roulette.js' %}" defer></script>
 {% endblock %}

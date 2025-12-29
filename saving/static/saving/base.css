@@ -1,4 +1,7 @@
-/* スマホUIの最大幅を414pxに固定 */
+body {
+  font-family: Noto Sans, sans-serif;
+}
+
 .app-container {
   max-width: 414px;
   margin: 0 auto;
@@ -7,7 +10,8 @@
 }
 
 main {
-  padding-top: 70px;
+  padding-top: 64px;
+  padding-bottom: 60px;
   width: 90%;
   max-width: 90%;
   margin: 0 auto;
@@ -40,6 +44,8 @@ main {
   text-align: center;
   padding: 12px 0;
   overflow: hidden;
+  height: 64px;
+  align-items: center;
 }
 
 .app-header::before {
@@ -58,11 +64,9 @@ main {
 }
 
 .app-header h1 {
-  margin: 0;
   font-size: 2rem;
   color: #333;
   position: relative;
-
 }
 
 .bottom-nav {
