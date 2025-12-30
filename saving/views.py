@@ -1,4 +1,7 @@
 from django.shortcuts import render, redirect
+from .models import MoodRecord
+from django.db.models import Sum
+from django.views.decorators.http import require_POST
 from django.contrib.auth.forms import UserCreationForm
 
 
@@ -24,8 +27,18 @@ def base(request):
 
 def roulette(request):
     return render(request, "saving/roulette.html")
+
+
+def feeling(request):
+    return render(request, "saving/feeling.html")
+
+
 def saving_list(request):
     return render(request, "saving/saving-list.html")
+
+
+def rps(request):
+    return render(request, "saving/rps.html")
 
 
 def ranking(request):
