@@ -1,0 +1,24 @@
+{% extends 'saving/base.html' %}
+{% load static %}
+
+{% block title %}
+ルーレット貯金
+{% endblock %}
+
+{% block header_title %}
+ルーレット貯金
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'saving/roulette.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="roulette-container">
+    <p id="amount">100円</p>
+    <button id="roulette-btn">スタート</button>
+</div>
+
+<!-- JS読み込みはdeferで問題なし -->
+<script src="{% static 'saving/roulette.js' %}" defer></script>
+{% endblock %}
