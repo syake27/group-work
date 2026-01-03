@@ -9,6 +9,8 @@ class MoodRecord(models.Model):
     def __str__(self):
         return f"{self.mood} - {self.created_at}"
 
+
+# 1
 # from django.db import models
 # from django.contrib.auth.models import User
 
