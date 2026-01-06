@@ -1,0 +1,75 @@
+.profile-container {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  border-bottom: 1px solid #e0e0e0;
+  padding: 20px 0;
+}
+.user-icon {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  background-color: yellow;
+}
+.user-name {
+  font-size: 20px;
+  font-weight: 500;
+}
+.user-id {
+  margin-top: 10px;
+  font-size: 16px;
+  color: gray;
+}
+
+.savings-progress {
+  margin-top: 20px;
+}
+.progress-container {
+  margin-top: 10px;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+.current-amount {
+  font-weight: bold;
+}
+.streak-container {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+.streak-current {
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  width: 49%;
+}
+.streak-total {
+  font-size: 14px;
+}
+.streak-best {
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  width: 49%;
+}
+
+.profile-actions {
+  margin-top: 20px;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+}
+.profile-actions button {
+  border-bottom: 1px solid #e0e0e0;
+  padding: 10px 0;
+  display: block;
+  width: 100%;
+}
