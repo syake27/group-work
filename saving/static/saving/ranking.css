@@ -1,0 +1,61 @@
+.top3 {
+    display: flex;
+    justify-content: space-around;
+    background-color: aqua;
+    padding: 20px 0;
+    border: 1px solid black;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+.rank-number {
+    font-size: 24px;
+    font-weight: bold;
+}
+.user-icon {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    object-fit: cover;
+    background-color: yellow;
+    position: relative;
+    margin-bottom: 5px;
+}
+.user-name {
+    margin-bottom: 5px;
+    font-weight: bold;
+    font-size: 20px;
+}
+.total-saved {
+    font-weight: bold;
+}
+.ranking-2-icon::before {
+    content: "2";
+    position: absolute;
+    top: 30%;
+    left: -20px;
+    font-size: 24px;
+}
+.ranking-2,
+.ranking-3 {
+    margin-top: 50px;
+}
+.ranking-1-icon::before {
+    content: "1";
+    position: absolute;
+    top: 30%;
+    left: -20px;
+    font-size: 24px;
+}
+.ranking-3-icon::before {
+    content: "3";
+    position: absolute;
+    top: 30%;
+    left: -20px;
+    font-size: 24px;
+}
+.user-info {
+    text-align: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
