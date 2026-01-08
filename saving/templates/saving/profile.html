@@ -13,30 +13,34 @@
 <div class="profile-container">
     <div class="user-icon">アイコン</div>
     <div class="user-info">
-        <p class="user-name">user_name</p>
+        <p class="user-name">{{ user_name }}</p>
         <p class="user-id">@user_id</p>
     </div>
 </div>
 <div class="savings-progress">
     <p>貯金の進捗</p>
     <div class="progress-container">
-        <p class="current-amount">¥12,345</p>
+        <p class="current-amount">¥{{ total_saving }}</p>
         <p class="target-amount">目標：¥100,000</p>
     </div>
     <div class="streak-container">
         <div class="streak-current">
-            <p class="streak-days">30日連続</p>
-            <p class="streak-total">累計貯金日数：100日</p>
+            <p class="streak-days">{{ current_streak }}日連続</p>
+            <p class="streak-total">累計貯金日数：{{ total_days }}日</p>
         </div>
-    
+
         <div class="streak-best">
             <p class="streak-label">最高連続記録</p>
-            <p class="streak-best-days">50日</p>
+            <p class="streak-best-days">{{ max_streak }}日</p>
         </div>
     </div>
 </div>
 <div class="profile-actions">
     <button>目標金額の変更</button>
     <button>プロフィール編集</button>
+    <form method="post" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit" class="logout-btn">ログアウト</button>
+    </form>
 </div>
 {% endblock %}

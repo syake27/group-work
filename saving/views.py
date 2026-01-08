@@ -5,6 +5,7 @@ from django.db.models import Sum
 from django.views.decorators.http import require_POST
 from django.contrib.auth.forms import UserCreationForm
 from .models import SavingRecord, Method
+from datetime import timedelta, date
 
 
 def signup(request):
@@ -19,20 +20,18 @@ def signup(request):
     return render(request, "saving/signup.html", {"form": form})
 
 
-def home(request):
-    total_saving = (
-        SavingRecord.objects.filter(user=request.user).aggregate(Sum("amount"))[
-            "amount__sum"
-        ]
+def get_total_saving(user):
+    return (
+        SavingRecord.objects.filter(user=user).aggregate(Sum("amount"))["amount__sum"]
         or 0
     )
-    return render(
-        request,
-        "saving/home.html",
-        {
-            "total_saving": total_saving,
-        },
-    )
+
+
+def home(request):
+    context = {
+        "total_saving": get_total_saving(request.user),
+    }
+    return render(request, "saving/home.html", context)
 
 
 def base(request):
@@ -60,7 +59,49 @@ def ranking(request):
 
 
 def profile(request):
-    return render(request, "saving/profile.html")
+    total_saving = get_total_saving(request.user)
+
+    dates = (
+        SavingRecord.objects.filter(user=request.user)
+        .values_list("saved_at", flat=True)
+        .order_by("saved_at")
+        .distinct()
+    )
+
+    current_streak = 0
+    total_days = 0
+    max_streak = 0
+
+    if dates:
+        dates = list(dates)
+        total_days = len(dates)
+
+        temp_streak = 1
+        max_streak = 1
+
+        for i in range(1, len(dates)):
+            if dates[i] - dates[i - 1] == timedelta(days=1):
+                temp_streak += 1
+            else:
+                max_streak = max(max_streak, temp_streak)
+                temp_streak = 1
+
+        max_streak = max(max_streak, temp_streak)
+
+        today = date.today()
+        if today - dates[-1] == timedelta(days=0):
+            current_streak = temp_streak
+        else:
+            current_streak = 0
+
+    context = {
+        "user_name": request.user.username,
+        "total_saving": total_saving,
+        "current_streak": current_streak,
+        "total_days": total_days,
+        "max_streak": max_streak,
+    }
+    return render(request, "saving/profile.html", context)
 
 
 def simple(request):
