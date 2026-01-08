@@ -20,4 +20,5 @@ urlpatterns = [
     ),
     path("logout/", auth_views.LogoutView.as_view(), name="logout"),
     path("simple/", views.simple, name="simple"),
+    path("dice/", views.dice, name="dice"),
 ]
