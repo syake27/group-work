@@ -1,0 +1,52 @@
+{% extends "saving/base.html" %}
+{% load static %}
+
+{% block title %}ランキング{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'saving/ranking.css' %}">
+{% endblock %}
+
+{% block header_title %}ランキング{% endblock %}
+
+{% block content %}
+<div class="top3">
+    <div class="ranking-2">
+        <div class="user-info">
+            <div class="user-icon ranking-2-icon">
+                <p>icon</p>
+            </div>
+            <div class="user-details">
+                <div class="user-name">あゆみ</div>
+                <div class="total-saved">¥485,000</div>
+            </div>
+        </div>
+    </div>
+    <div class="ranking-1">
+        <div class="user-info">
+            <div class="user-icon ranking-1-icon">
+                <p>icon</p>
+            </div>
+            <div class="user-details">
+                <div class="user-name">たかし</div>
+                <div class="total-saved">¥520,000</div>
+            </div>
+        </div>
+    </div>
+    <div class="ranking-3">
+        <div class="user-info">
+            <div class="user-icon ranking-3-icon">
+                <p>icon</p>
+            </div>
+            <div class="user-details">
+                <div class="user-name">みさき</div>
+                <div class="total-saved">¥450,000</div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="ranking-list">
+    
+
+</div>
+{% endblock %}
