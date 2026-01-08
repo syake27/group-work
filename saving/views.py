@@ -6,6 +6,7 @@ from django.views.decorators.http import require_POST
 from django.contrib.auth.forms import UserCreationForm
 from .models import SavingRecord, Method
 from datetime import timedelta, date
+from django.contrib.auth.decorators import login_required
 
 
 def signup(request):
@@ -27,6 +28,7 @@ def get_total_saving(user):
     )
 
 
+@login_required
 def home(request):
     context = {
         "total_saving": get_total_saving(request.user),
@@ -46,6 +48,7 @@ def feeling(request):
     return render(request, "saving/feeling.html")
 
 
+@login_required
 def saving_list(request):
     return render(request, "saving/saving-list.html")
 
@@ -54,10 +57,12 @@ def rps(request):
     return render(request, "saving/rps.html")
 
 
+@login_required
 def ranking(request):
     return render(request, "saving/ranking.html")
 
 
+@login_required
 def profile(request):
     total_saving = get_total_saving(request.user)
 
@@ -124,3 +129,11 @@ def simple(request):
 
 def dice(request):
     return render(request, "saving/dice.html")
+
+
+def edit_target(request):
+    return render(request, "saving/edit_target.html")
+
+
+def edit_profile(request):
+    return render(request, "saving/edit_profile.html")
