@@ -1,0 +1,33 @@
+{% extends 'saving/base.html' %}
+{% load static %}
+
+{% block title %}予想サイコロ貯金{% endblock %}
+{% block header_title %}予想サイコロ貯金{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'saving/dice.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="dice-container">
+
+    <div class="guess-box">
+        <p>出そうな目を予想してください</p>
+        <select id="guess">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+        </select>
+    </div>
+
+    <p id="dice-result">🎲 -</p>
+    <p id="money">---</p>
+
+    <button id="dice-btn">サイコロを振る</button>
+</div>
+
+<script src="{% static 'saving/dice.js' %}" defer></script>
+{% endblock %}

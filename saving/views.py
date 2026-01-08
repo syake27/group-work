@@ -79,3 +79,7 @@ def simple(request):
         return render(request, "saving/simple_done.html", {"amount": amount})
 
     return render(request, "saving/simple.html")
+
+
+def dice(request):
+    return render(request, "saving/dice.html")
