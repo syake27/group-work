@@ -6,6 +6,7 @@ urlpatterns = [
     path("", views.home, name="home"),
     path("home/", views.home, name="home"),
     path("base/", views.base, name="base"),
+    path("roulette/", views.roulette, name="roulette"),
     path("feeling/", views.feeling, name="feeling"),
     path("saving-list/", views.saving_list, name="saving_list"),
     path("rps/", views.rps, name="rps"),
@@ -18,4 +19,5 @@ urlpatterns = [
         name="login",
     ),
     path("logout/", auth_views.LogoutView.as_view(), name="logout"),
+    path("simple/", views.simple, name="simple"),
 ]

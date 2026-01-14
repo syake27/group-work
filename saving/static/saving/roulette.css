@@ -1,0 +1,28 @@
+/* roulette.css - ルーレット専用スタイル */
+
+.roulette-container {
+    text-align: center;
+    margin-top: 150px;
+    /* ヘッダー分スペース確保 */
+}
+
+#amount {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+#roulette-btn {
+    padding: 15px 30px;
+    font-size: 1.5rem;
+    border-radius: 8px;
+    background-color: #ffd84b;
+    border: 1px solid #d99730;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+#roulette-btn:active {
+    background-color: #d99730;
+    color: #fff;
+}
