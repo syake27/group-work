@@ -18,28 +18,3 @@
     <button type="submit" name="mood" value="悲しい、、">😩</button>
 </form>
 {% endblock %}
-
-<!-- {% extends "saving/base.html" %}
-{% load static %}
-
-{% block title %}気分貯金{% endblock %}
-
-{% block extra_css %}
-<link rel="stylesheet" href="{% static 'saving/feeling.css' %}">
-{% endblock %}
-
-{% block header_title %}気分貯金{% endblock %}
-
-{% block content %}
-<h1>今日の気分を選んでください</h1>
-<form method="post">
-    {% csrf_token %}
-    <div>
-        <label for="amount">金額（円）:</label>
-        <input type="number" name="amount" id="amount" min="1" required>
-    </div>
-    <button type="submit" name="mood" value="元気！！">😄</button>
-    <button type="submit" name="mood" value="普通">😐</button>
-    <button type="submit" name="mood" value="悲しい、、">😩</button>
-</form>
-{% endblock %} -->
