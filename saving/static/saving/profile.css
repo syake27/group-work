@@ -10,7 +10,14 @@
   height: 100px;
   border-radius: 50%;
   object-fit: cover;
-  background-color: yellow;
+  background: radial-gradient(circle at 30% 30%, #fff, #f2d9a7 70%);
+  background-position: center;
+  background-size: cover;
+  border: 2px solid #e1c082;
+  position: relative;
+  margin-bottom: 2px;
+  box-shadow: 0 8px 14px rgba(120, 90, 35, 0.2);
+  color: transparent;
 }
 .user-name {
   font-size: 20px;
