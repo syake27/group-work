@@ -19,4 +19,4 @@ class SavingRecord(models.Model):
     method = models.ForeignKey(Method, on_delete=models.CASCADE)
     amount = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
-    saved_at = models.DateField()
+    saved_at = models.DateTimeField()

@@ -2,13 +2,18 @@ from django.shortcuts import render, redirect
 from django.conf import settings
 from django.utils import timezone
 from django.db.models import Sum
+<<<<<<< Updated upstream
 from django.db.models.functions import Coalesce
 from django.contrib.auth import get_user_model
+=======
+from django.db.models.functions import TruncDate
+>>>>>>> Stashed changes
 from django.views.decorators.http import require_POST
 from .forms import CustomUserCreationForm, ProfileEditForm
 from .models import SavingRecord, Method
 from datetime import timedelta, date
 from django.contrib.auth.decorators import login_required
+import json
 
 
 def signup(request):
@@ -30,10 +35,101 @@ def get_total_saving(user):
     )
 
 
+def get_today_saving(user):
+    today = timezone.localdate()
+    return (
+        SavingRecord.objects.filter(user=user, saved_at__date=today).aggregate(
+            Sum("amount")
+        )["amount__sum"]
+        or 0
+    )
+
+
+def get_month_saving(user):
+    today = timezone.localdate()
+    start_of_month = today.replace(day=1)
+    return (
+        SavingRecord.objects.filter(
+            user=user, saved_at__date__gte=start_of_month
+        ).aggregate(Sum("amount"))["amount__sum"]
+        or 0
+    )
+
+
 @login_required
 def home(request):
+    # Calculate current streak
+    dates = (
+        SavingRecord.objects.filter(user=request.user)
+        .values_list("saved_at", flat=True)
+        .order_by("saved_at")
+        .distinct()
+    )
+
+    current_streak = 0
+    if dates:
+        dates = list(dates)
+        temp_streak = 1
+        for i in range(1, len(dates)):
+            if dates[i] - dates[i - 1] == timedelta(days=1):
+                temp_streak += 1
+            else:
+                temp_streak = 1
+
+        today = timezone.localdate()
+        if dates[-1] == today:
+            current_streak = temp_streak
+        else:
+            current_streak = 0
+
+    total_saving = get_total_saving(request.user)
+    target_amount = request.user.target_amount
+    if target_amount > 0:
+        achievement_rate = int((total_saving / target_amount) * 100)
+    else:
+        achievement_rate = 0
+
+    # Get saving history
+    saving_history = []
+    dates = (
+        SavingRecord.objects.filter(user=request.user)
+        .annotate(date=TruncDate("saved_at"))
+        .values("date")
+        .distinct()
+        .order_by("-date")
+    )
+    for date_obj in dates:
+        saved_date = date_obj["date"]
+        total = SavingRecord.objects.filter(
+            user=request.user, saved_at__date=saved_date
+        ).aggregate(Sum("amount"))["amount__sum"]
+
+        records = (
+            SavingRecord.objects.filter(user=request.user, saved_at__date=saved_date)
+            .select_related("method")
+            .order_by("-created_at")
+        )
+
+        saving_history.append({"date": saved_date, "total": total, "records": records})
+
+    # Prepare graph data
+    graph_labels = []
+    graph_data = []
+    for day in saving_history:
+        graph_labels.append(day["date"].strftime("%m/%d"))
+        graph_data.append(day["total"])
+
+    graph_data_json = json.dumps({"labels": graph_labels, "data": graph_data})
+
     context = {
-        "total_saving": get_total_saving(request.user),
+        "total_saving": total_saving,
+        "today_saving": get_today_saving(request.user),
+        "month_saving": get_month_saving(request.user),
+        "current_streak": current_streak,
+        "achievement_rate": achievement_rate,
+        "target_amount": target_amount,
+        "saving_history": saving_history,
+        "graph_data": graph_data_json,
     }
     return render(request, "saving/home.html", context)
 
@@ -96,8 +192,9 @@ def profile(request):
 
     dates = (
         SavingRecord.objects.filter(user=request.user)
-        .values_list("saved_at", flat=True)
-        .order_by("saved_at")
+        .annotate(date=TruncDate("saved_at"))
+        .values_list("date", flat=True)
+        .order_by("date")
         .distinct()
     )
 
@@ -121,7 +218,7 @@ def profile(request):
 
         max_streak = max(max_streak, temp_streak)
 
-        today = date.today()
+        today = timezone.localdate()
         if today - dates[-1] == timedelta(days=0):
             current_streak = temp_streak
         else:
@@ -133,6 +230,7 @@ def profile(request):
         "current_streak": current_streak,
         "total_days": total_days,
         "max_streak": max_streak,
+        "target_amount": request.user.target_amount,
     }
     return render(request, "saving/profile.html", context)
 
@@ -147,7 +245,7 @@ def simple(request):
             user=request.user,
             method=method,
             amount=amount,
-            saved_at=timezone.now().date(),
+            saved_at=timezone.now(),
         )
 
         return render(request, "saving/simple_done.html", {"amount": amount})
@@ -159,7 +257,14 @@ def dice(request):
     return render(request, "saving/dice.html")
 
 
+@login_required
 def edit_target(request):
+    if request.method == "POST":
+        target_amount = request.POST.get("target_amount")
+        if target_amount:
+            request.user.target_amount = int(target_amount)
+            request.user.save()
+            return redirect("profile")
     return render(request, "saving/edit_target.html")
 
 

@@ -1,4 +1,5 @@
 {% extends "saving/base.html" %}
+{% load humanize %}
 {% load static %}
 
 {% block title %}貯金{% endblock %}
@@ -21,7 +22,7 @@
     <p>貯金の進捗</p>
     <div class="progress-container">
         <p class="current-amount">¥{{ total_saving }}</p>
-        <p class="target-amount">目標：¥100,000</p>
+        <p class="target-amount">目標：¥{{ target_amount|intcomma }}</p>
     </div>
     <div class="streak-container">
         <div class="streak-current">
@@ -36,8 +37,12 @@
     </div>
 </div>
 <div class="profile-actions">
+
     <button>目標金額の変更</button>
     <a href="{% url 'profile_edit' %}">プロフィール編集</a>
+
+    <button onclick="location.href='{% url 'edit_target' %}'">目標金額の変更</button>
+    <button>プロフィール編集</button>
     <form method="post" action="{% url 'logout' %}">
         {% csrf_token %}
         <button type="submit" class="logout-btn">ログアウト</button>
