@@ -1,0 +1,38 @@
+{% extends 'saving/base.html' %}
+{% load static %}
+
+{% block title %}プロフィール編集{% endblock %}
+{% block header_title %}編集{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'saving/profile-edit.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="profile-edit-container">
+    <form method="post" enctype="multipart/form-data" class="profile-edit-form">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+
+        <div class="profile-edit-preview">
+            <div class="profile-edit-icon"
+                {% if request.user.user_icon %}style="background-image: url('{{ request.user.user_icon.url }}');"{% endif %}>
+            </div>
+        </div>
+
+        <div class="profile-edit-field">
+            <label for="{{ form.username.id_for_label }}">名前</label>
+            {{ form.username }}
+            {{ form.username.errors }}
+        </div>
+
+        <div class="profile-edit-field">
+            <label for="{{ form.user_icon.id_for_label }}">アイコン画像</label>
+            {{ form.user_icon }}
+            {{ form.user_icon.errors }}
+        </div>
+
+        <button type="submit" class="profile-edit-submit">保存する</button>
+    </form>
+</div>
+{% endblock %}
