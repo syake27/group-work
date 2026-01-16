@@ -90,24 +90,26 @@ def get_total_saving(user):
 
 @login_required
 def home(request):
+    # 連続貯金日数の計算
     dates = (
         SavingRecord.objects.filter(user=request.user)
-        .values_list("saved_at", flat=True)
-        .order_by("saved_at")
+        .annotate(date=TruncDate("saved_at"))
+        .values("date")
         .distinct()
+        .order_by("date")
     )
 
     current_streak = 0
     if dates:
-        dates = list(dates)
+        dates_list = [d["date"] for d in dates]
         temp_streak = 1
-        for i in range(1, len(dates)):
-            if dates[i] - dates[i - 1] == timedelta(days=1):
+        for i in range(1, len(dates_list)):
+            if dates_list[i] - dates_list[i - 1] == timedelta(days=1):
                 temp_streak += 1
             else:
                 temp_streak = 1
 
-        if dates[-1] == timezone.localdate():
+        if dates_list[-1] == timezone.localdate():
             current_streak = temp_streak
 
     total_saving = get_total_saving(request.user)
@@ -116,8 +118,9 @@ def home(request):
         int((total_saving / target_amount) * 100) if target_amount > 0 else 0
     )
 
+    # 貯金履歴の取得（降順）
     saving_history = []
-    dates = (
+    history_dates = (
         SavingRecord.objects.filter(user=request.user)
         .annotate(date=TruncDate("saved_at"))
         .values("date")
@@ -125,7 +128,7 @@ def home(request):
         .order_by("-date")
     )
 
-    for date_obj in dates:
+    for date_obj in history_dates:
         saved_date = date_obj["date"]
         total = SavingRecord.objects.filter(
             user=request.user, saved_at=saved_date
