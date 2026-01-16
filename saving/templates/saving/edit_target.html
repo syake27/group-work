@@ -1,0 +1,23 @@
+{% extends "saving/base.html" %}
+{% load static %}
+
+{% block title %}目標金額の変更{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'saving/profile.css' %}">
+{% endblock %}
+
+{% block header_title %}目標金額の変更{% endblock %}
+
+{% block content %}
+<div class="profile-container">
+    <h2>目標金額を設定</h2>
+    <form method="post">
+        {% csrf_token %}
+        <label for="target_amount">目標金額 (円):</label>
+        <input type="number" id="target_amount" name="target_amount" value="{{ request.user.target_amount }}" required>
+        <button type="submit">保存</button>
+    </form>
+    <a href="{% url 'profile' %}">戻る</a>
+</div>
+{% endblock %}

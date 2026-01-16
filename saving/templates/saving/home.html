@@ -1,4 +1,6 @@
 {% extends "saving/base.html" %}
+{% load humanize tz %}
+
 {% load static %}
 
 {% block title %}ホーム{% endblock %}
@@ -18,16 +20,16 @@
                 <h3>本日の貯金額</h3>
                 <div class="amount-box">
                     <p class="amount-symbol">¥</p>
-                    <p class="amount-value">3,500</p>
+                    <p class="amount-value">{{ today_saving|intcomma }}</p>
                 </div>
                 <h3 class="saving-title">今月の貯金額</h3>
                 <div class="amount-box">
                     <p class="amount-symbol">¥</p>
-                    <p class="amount-value">3,500</p>
+                    <p class="amount-value">{{ month_saving|intcomma }}</p>
                 </div>
                 <div class="saving-days">
-                    <p class="saving-count">10</p>
-                    <p class="saving-label">日貯金しました</p>
+                    <p class="saving-count">{{ current_streak }}</p>
+                    <p class="saving-label">日連続貯金しました</p>
                 </div>
                 <a href="{% url 'saving_list' %}" class="saving-btn">
                     <span class="btn-plus">
@@ -45,18 +47,18 @@
                 <h3>目標金額</h3>
                 <div class="goal-amount-box">
                     <p class="goal-amount-symbol">¥</p>
-                    <p class="goal-amount-value">100,000</p>
+                    <p class="goal-amount-value">{{ target_amount|intcomma }}</p>
                 </div>
                 <h3 class="saving-title">貯金金額</h3>
                 <div class="saved-amount-box">
                     <p class="saved-amount-symbol">¥</p>
-                    <p class="saved-amount-value">{{ total_saving }}</p>
+                    <p class="saved-amount-value">{{ total_saving|intcomma }}</p>
                 </div>
                 <div class="circle-wrapper">
-                    <div class="progress-circle" style="--rate: 25;">
+                    <div class="progress-circle" style="--rate: {{ achievement_rate }};">
                         <div class="progress-inner">
                             <p class="progress-label">達成率</p>
-                            <p class="progress-text">25%</p>
+                            <p class="progress-text">{{ achievement_rate }}%</p>
                         </div>
                     </div>
                 </div>
@@ -73,83 +75,42 @@
             <div class="tab-content active" id="history">
                 <div class="saving-history-card card">
                     <ul class="history-list">
+                        {% for day in saving_history %}
                         <li class="history-item">
                             <div class="history-header">
                                 <div class="history-main">
-                                    <p class="history-date">06/01</p>
-                                    <p class="history-amount">¥3,500</p>
+                                    <p class="history-date">{{ day.date|date:"m/d" }}</p>
+                                    <p class="history-amount">¥{{ day.total|intcomma }}</p>
                                 </div>
                                 <i class="fa-solid fa-angle-down history-toggle"></i>
                             </div>
                             <div class="history-body">
                                 <div class="history-body-inner">
                                     <ul class="history-detail-list">
+                                        {% for record in day.records %}
                                         <li>
                                             <div class="detail-item">
                                                 <div>
-                                                    <p class="detail-label">じゃんけん貯金</p>
+                                                    <p class="detail-label">{{ record.method.method_name }}</p>
                                                 </div>
                                                 <div>
-                                                    <p class="detail-value">¥1,500</p>
+                                                    <p class="detail-value">¥{{ record.amount|intcomma }}</p>
                                                 </div>
                                             </div>
                                         </li>
-                                        <li>
-                                            <div class="detail-item">
-                                                <div>
-                                                    <p class="detail-label">じゃんけん貯金</p>
-                                                </div>
-                                                <div>
-                                                    <p class="detail-value">¥1,500</p>
-                                                </div>
-                                            </div>
-                                        </li>
+                                        {% endfor %}
                                     </ul>
                                 </div>
                             </div>
                         </li>
-                        <li class="history-item">
-                            <div class="history-header">
-                                <div class="history-main">
-                                    <p class="history-date">06/01</p>
-                                    <p class="history-amount">¥3,500</p>
-                                </div>
-                                <i class="fa-solid fa-angle-down history-toggle"></i>
-                            </div>
-                            <div class="history-body">
-                                <div class="history-body-inner">
-                                    <ul class="history-detail-list">
-                                        <li>
-                                            <div class="detail-item">
-                                                <div>
-                                                    <p class="detail-label">じゃんけん貯金</p>
-                                                </div>
-                                                <div>
-                                                    <p class="detail-value">¥1,500</p>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="detail-item">
-                                                <div>
-                                                    <p class="detail-label">じゃんけん貯金</p>
-                                                </div>
-                                                <div>
-                                                    <p class="detail-value">¥1,500</p>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </li>
+                        {% endfor %}
                     </ul>
                 </div>
             </div>
             <!-- 進捗グラフ -->
             <div class="tab-content" id="progress">
                 <div class="saving-progress-card card">
-                    <p>ここに進捗グラフを表示</p>
+                    <canvas id="progressChart"></canvas>
                 </div>
             </div>
         </div>
@@ -193,6 +154,46 @@
         });
     });
 
+    // 進捗グラフの描画
+    const chartScript = document.createElement('script');
+    chartScript.src = 'https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js';
+    document.head.appendChild(chartScript);
+
+    chartScript.onload = function () {
+        const historyData = {{ graph_data|safe }};
+        const ctx = document.getElementById('progressChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: historyData.labels,
+                datasets: [{
+                    label: '貯金額（円）',
+                    data: historyData.data,
+                    borderColor: '#d7a640',
+                    backgroundColor: 'rgba(215, 166, 64, 0.1)',
+                    borderWidth: 2,
+                    fill: true,
+                    tension: 0.4,
+                    pointBackgroundColor: '#d7a640',
+                    pointBorderColor: '#af8118',
+                    pointRadius: 5,
+                    pointHoverRadius: 7
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: '貯金額'
+                        }
+                    }
+                }
+            }
+        });
+    };
 
 </script>
 {% endblock %}
