@@ -1,0 +1,215 @@
+:root {
+  --gold-strong: #d6a543;
+  --gold-soft: #f4e3b1;
+  --cream: #fff7e8;
+  --ink: #5f4b2a;
+  --line: #e7d9c2;
+  --shadow: 0 10px 20px rgba(96, 70, 24, 0.15);
+}
+
+body {
+  background: #f5efe2;
+}
+
+.top3 {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 18px 14px 20px;
+  margin-top: 20px;
+  border-radius: 18px;
+  border: 1px solid #e1c98f;
+  background: linear-gradient(180deg, #f8e6a8 0%, #fff2d2 55%, #fffaf1 100%);
+  box-shadow: var(--shadow);
+  position: relative;
+  overflow: hidden;
+}
+
+.top3::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle at 18% 30%, rgba(255, 255, 255, 0.9), transparent 22%),
+    radial-gradient(circle at 70% 20%, rgba(255, 255, 255, 0.75), transparent 24%),
+    radial-gradient(circle at 85% 55%, rgba(255, 255, 255, 0.6), transparent 18%);
+  pointer-events: none;
+}
+
+.user-info {
+  text-align: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  position: relative;
+  z-index: 1;
+}
+
+.ranking-1,
+.ranking-2,
+.ranking-3 {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.ranking-1 {
+  transform: translateY(-6px);
+  z-index: 2;
+}
+
+.ranking-2,
+.ranking-3 {
+  margin-top: 30px;
+}
+
+.user-icon {
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: radial-gradient(circle at 30% 30%, #fff, #f2d9a7 70%);
+  background-position: center;
+  background-size: cover;
+  border: 2px solid #e1c082;
+  position: relative;
+  margin-bottom: 2px;
+  box-shadow: 0 8px 14px rgba(120, 90, 35, 0.2);
+  color: transparent;
+}
+
+.ranking-1 .user-icon {
+  width: 88px;
+  height: 88px;
+}
+
+.ranking-1-icon::before,
+.ranking-2-icon::before,
+.ranking-3-icon::before {
+  position: absolute;
+  top: 16px;
+  left: -20px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--ink);
+  background: #fff6dd;
+  border: 1px solid #e1c082;
+  box-shadow: 0 2px 6px rgba(110, 80, 20, 0.2);
+  content: "";
+}
+
+.ranking-1-icon::before {
+  content: "1";
+}
+
+.ranking-2-icon::before {
+  content: "2";
+}
+
+.ranking-3-icon::before {
+  content: "3";
+}
+
+.user-name {
+  margin-bottom: 2px;
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--ink);
+}
+
+.total-saved {
+  font-weight: 800;
+  color: #8b6b2a;
+  letter-spacing: 0.5px;
+}
+
+.ranking-list {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ranking-list-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: linear-gradient(90deg, #fffdf9 0%, var(--cream) 80%);
+  box-shadow: 0 4px 10px rgba(120, 90, 35, 0.08);
+}
+
+.ranking-list-item.is-current {
+  border-color: #e1c082;
+  background: linear-gradient(90deg, #fff6e2 0%, #fffdf6 90%);
+}
+
+.ranking-list-number {
+  width: 32px;
+  height: 32px;
+  border-radius: 12px;
+  background: #fff1c7;
+  border: 1px solid #e5c887;
+  color: #7a5a23;
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+}
+
+.ranking-list-user-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex: 1;
+  min-width: 0;
+}
+
+.ranking-list-name {
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.ranking-list-user-details {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ranking-list-user-total {
+  font-weight: 700;
+  color: #8b6b2a;
+  letter-spacing: 0.4px;
+}
+
+.ranking-list-user-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #fff, #f0d6a1 70%);
+  background-position: center;
+  background-size: cover;
+  border: 2px solid #e1c082;
+  box-shadow: 0 6px 10px rgba(120, 90, 35, 0.18);
+}
+
+@media (max-width: 360px) {
+  .ranking-1 .user-icon {
+    width: 74px;
+    height: 74px;
+  }
+
+  .user-name {
+    font-size: 16px;
+  }
+
+  .ranking-list-item {
+    padding: 10px 12px;
+  }
+}

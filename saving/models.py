@@ -8,7 +8,6 @@ class Method(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
 
-
 class User(AbstractUser):
     user_icon = models.ImageField(upload_to="user_icons/", null=True, blank=True)
     target_amount = models.IntegerField(default=0)
@@ -21,4 +20,3 @@ class SavingRecord(models.Model):
     amount = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
     saved_at = models.DateField()
-

@@ -1,0 +1,92 @@
+/* 全体の背景 */
+body {
+    font-family: "Helvetica", "Arial", sans-serif;
+    background: #f2f4f8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+/* ログインフォームのコンテナ */
+.login-container {
+    background: #ffffff;
+    padding: 40px 50px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 350px;
+    text-align: center;
+}
+
+/* タイトル */
+.login-container h2 {
+    margin-bottom: 25px;
+    font-size: 24px;
+    color: #333;
+}
+
+/* input を囲む div */
+.login-container form div {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+/* ラベル */
+.login-container label {
+    display: block;
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 5px;
+}
+
+/* input 要素 */
+.login-container input {
+    width: 100%;
+    padding: 10px 12px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background: #fafafa;
+    transition: 0.2s;
+}
+
+/* input フォーカス時 */
+.login-container input:focus {
+    border-color: #4a90e2;
+    outline: none;
+    background: #fff;
+}
+
+/* ログインボタン */
+.login-container button {
+    width: 100%;
+    padding: 12px;
+    font-size: 15px;
+    background-color: #4a90e2;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+/* ホバー時 */
+.login-container button:hover {
+    background-color: #357ab8;
+}
+
+/* 新規登録リンク */
+.login-container p {
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.login-container a {
+    color: #4a90e2;
+    text-decoration: none;
+}
+
+.login-container a:hover {
+    text-decoration: underline;
+}

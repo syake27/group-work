@@ -1,0 +1,75 @@
+{% extends "saving/base.html" %}
+{% load static %}
+
+{% block title %}ランキング{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'saving/ranking.css' %}">
+{% endblock %}
+
+{% block header_title %}ランキング{% endblock %}
+
+{% block content %}
+<div class="top3">
+    <div class="ranking-2">
+        {% if top2 %}
+        <div class="user-info">
+            <div class="user-icon ranking-2-icon" {% if top2.user_icon %}style="background-image: url('{{ top2.user_icon }}');"{% endif %}></div>
+            <div class="user-details">
+                <div class="user-name">{{ top2.username }}</div>
+                <div class="total-saved">{{ top2.total_display }}</div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+    <div class="ranking-1">
+        {% if top1 %}
+        <div class="user-info">
+            <div class="user-icon ranking-1-icon" {% if top1.user_icon %}style="background-image: url('{{ top1.user_icon }}');"{% endif %}></div>
+            <div class="user-details">
+                <div class="user-name">{{ top1.username }}</div>
+                <div class="total-saved">{{ top1.total_display }}</div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+    <div class="ranking-3">
+        {% if top3 %}
+        <div class="user-info">
+            <div class="user-icon ranking-3-icon" {% if top3.user_icon %}style="background-image: url('{{ top3.user_icon }}');"{% endif %}></div>
+            <div class="user-details">
+                <div class="user-name">{{ top3.username }}</div>
+                <div class="total-saved">{{ top3.total_display }}</div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+<div class="ranking-list">
+    {% for item in rest %}
+    <div class="ranking-list-item{% if item.is_current %} is-current{% endif %}">
+        <div class="ranking-list-number">{{ item.rank }}</div>
+        <div class="ranking-list-user-info">
+            <div class="ranking-list-name">
+                {{ item.username }}{% if item.is_current %}（あなた）{% endif %}
+            </div>
+            <div class="ranking-list-user-details">
+                <div class="ranking-list-user-total">{{ item.total_display }}</div>
+                <div class="ranking-list-user-icon" {% if item.user_icon %}style="background-image: url('{{ item.user_icon }}');"{% endif %}></div>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="ranking-list-item">
+        <div class="ranking-list-number">-</div>
+        <div class="ranking-list-user-info">
+            <div class="ranking-list-name">まだデータがありません</div>
+            <div class="ranking-list-user-details">
+                <div class="ranking-list-user-total">¥0</div>
+                <div class="ranking-list-user-icon"></div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -20,4 +20,8 @@ urlpatterns = [
     ),
     path("logout/", auth_views.LogoutView.as_view(), name="logout"),
     path("simple/", views.simple, name="simple"),
+    path("dice/", views.dice, name="dice"),
+    path("edit-target/", views.edit_target, name="edit_target"),
+    path("edit-profile/", views.edit_profile, name="edit_profile"),
+    path("profile-edit/", views.profile_edit, name="profile_edit"),
 ]

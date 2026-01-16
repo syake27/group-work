@@ -1,0 +1,51 @@
+{% extends "saving/base.html" %}
+{% load humanize %}
+{% load static %}
+
+{% block title %}貯金{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'saving/profile.css' %}">
+{% endblock %}
+
+{% block header_title %}貯金{% endblock %}
+
+{% block content %}
+<div class="profile-container">
+    <div class="user-icon" {% if request.user.user_icon %}style="background-image: url('{{ request.user.user_icon.url }}');"{% endif %}></div>
+    <div class="user-info">
+        <p class="user-name">{{ user_name }}</p>
+        <p class="user-id">@{{ request.user.username }}</p>
+    </div>
+</div>
+<div class="savings-progress">
+    <p>貯金の進捗</p>
+    <div class="progress-container">
+        <p class="current-amount">¥{{ total_saving }}</p>
+        <p class="target-amount">目標：¥{{ target_amount|intcomma }}</p>
+    </div>
+    <div class="streak-container">
+        <div class="streak-current">
+            <p class="streak-days">{{ current_streak }}日連続</p>
+            <p class="streak-total">累計貯金日数：{{ total_days }}日</p>
+        </div>
+
+        <div class="streak-best">
+            <p class="streak-label">最高連続記録</p>
+            <p class="streak-best-days">{{ max_streak }}日</p>
+        </div>
+    </div>
+</div>
+<div class="profile-actions">
+
+    <button>目標金額の変更</button>
+    <a href="{% url 'profile_edit' %}">プロフィール編集</a>
+
+    <button onclick="location.href='{% url 'edit_target' %}'">目標金額の変更</button>
+    <button>プロフィール編集</button>
+    <form method="post" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit" class="logout-btn">ログアウト</button>
+    </form>
+</div>
+{% endblock %}
