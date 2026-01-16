@@ -12,10 +12,10 @@
 
 {% block content %}
 <div class="profile-container">
-    <div class="user-icon" {% if request.user.user_icon %}style="background-image: url('{{ request.user.user_icon.url }}');"{% endif %}></div>
+    <div class="user-icon">アイコン</div>
     <div class="user-info">
         <p class="user-name">{{ user_name }}</p>
-        <p class="user-id">@{{ request.user.username }}</p>
+        <p class="user-id">@user_id</p>
     </div>
 </div>
 <div class="savings-progress">
@@ -37,12 +37,8 @@
     </div>
 </div>
 <div class="profile-actions">
-
-    <button>目標金額の変更</button>
-    <a href="{% url 'profile_edit' %}">プロフィール編集</a>
-
-    <button onclick="location.href='{% url 'edit_target' %}'">目標金額の変更</button>
-    <button>プロフィール編集</button>
+    <button onclick="location.href='{% url "edit_target" %}'">目標金額の変更</button>
+    <button onclick="location.href='{% url "profile_edit" %}'">プロフィール編集</button>
     <form method="post" action="{% url 'logout' %}">
         {% csrf_token %}
         <button type="submit" class="logout-btn">ログアウト</button>
