@@ -2,8 +2,9 @@ from django.shortcuts import render, redirect
 from django.conf import settings
 from django.utils import timezone
 from django.db.models import Sum
-from django.db.models.functions import TruncDate
+from django.db.models.functions import TruncDate, Coalesce
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import get_user_model
 from .models import SavingRecord, Method
 from .forms import CustomUserCreationForm
 from datetime import timedelta
@@ -46,8 +47,35 @@ def rps(request):
     return render(request, "saving/rps.html")
 
 
+@login_required
 def ranking(request):
-    return render(request, "saving/ranking.html")
+    User = get_user_model()
+    users = (
+        User.objects.annotate(total=Coalesce(Sum("savingrecord__amount"), 0))
+        .order_by("-total", "username", "id")
+        .only("id", "username", "user_icon")
+    )
+
+    ranking_list = []
+    for idx, user in enumerate(users, start=1):
+        ranking_list.append(
+            {
+                "rank": idx,
+                "username": user.username,
+                "total": user.total,
+                "total_display": f"¥{user.total:,}",
+                "user_icon": user.user_icon.url if user.user_icon else "",
+                "is_current": user.id == request.user.id,
+            }
+        )
+
+    context = {
+        "top1": ranking_list[0] if len(ranking_list) >= 1 else None,
+        "top2": ranking_list[1] if len(ranking_list) >= 2 else None,
+        "top3": ranking_list[2] if len(ranking_list) >= 3 else None,
+        "rest": ranking_list[3:],
+    }
+    return render(request, "saving/ranking.html", context)
 
 
 # --------------------
