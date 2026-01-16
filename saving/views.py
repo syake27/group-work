@@ -14,6 +14,7 @@ import json
 # 認証・基本ページ
 # --------------------
 
+
 def signup(request):
     if request.method == "POST":
         form = CustomUserCreationForm(request.POST)
@@ -53,11 +54,13 @@ def ranking(request):
 # 集計用ユーティリティ
 # --------------------
 
+
 def get_today_saving(user):
     today = timezone.localdate()
     return (
-        SavingRecord.objects.filter(user=user, saved_at=today)
-        .aggregate(Sum("amount"))["amount__sum"]
+        SavingRecord.objects.filter(user=user, saved_at=today).aggregate(Sum("amount"))[
+            "amount__sum"
+        ]
         or 0
     )
 
@@ -66,17 +69,16 @@ def get_month_saving(user):
     today = timezone.localdate()
     start_of_month = today.replace(day=1)
     return (
-        SavingRecord.objects.filter(
-            user=user, saved_at__gte=start_of_month
-        ).aggregate(Sum("amount"))["amount__sum"]
+        SavingRecord.objects.filter(user=user, saved_at__gte=start_of_month).aggregate(
+            Sum("amount")
+        )["amount__sum"]
         or 0
     )
 
 
 def get_total_saving(user):
     return (
-        SavingRecord.objects.filter(user=user)
-        .aggregate(Sum("amount"))["amount__sum"]
+        SavingRecord.objects.filter(user=user).aggregate(Sum("amount"))["amount__sum"]
         or 0
     )
 
@@ -84,6 +86,7 @@ def get_total_saving(user):
 # --------------------
 # ホーム
 # --------------------
+
 
 @login_required
 def home(request):
@@ -109,22 +112,24 @@ def home(request):
 
     total_saving = get_total_saving(request.user)
     target_amount = request.user.target_amount
-    achievement_rate = int((total_saving / target_amount) * 100) if target_amount > 0 else 0
+    achievement_rate = (
+        int((total_saving / target_amount) * 100) if target_amount > 0 else 0
+    )
 
     saving_history = []
     dates = (
         SavingRecord.objects.filter(user=request.user)
-        .values("saved_at")
+        .annotate(date=TruncDate("saved_at"))
+        .values("date")
         .distinct()
-        .order_by("-saved_at")
+        .order_by("-date")
     )
 
     for date_obj in dates:
-        saved_date = date_obj["saved_at"]
-        total = (
-            SavingRecord.objects.filter(user=request.user, saved_at=saved_date)
-            .aggregate(Sum("amount"))["amount__sum"]
-        )
+        saved_date = date_obj["date"]
+        total = SavingRecord.objects.filter(
+            user=request.user, saved_at=saved_date
+        ).aggregate(Sum("amount"))["amount__sum"]
 
         records = (
             SavingRecord.objects.filter(user=request.user, saved_at=saved_date)
@@ -132,11 +137,7 @@ def home(request):
             .order_by("-created_at")
         )
 
-        saving_history.append({
-            "date": saved_date,
-            "total": total,
-            "records": records
-        })
+        saving_history.append({"date": saved_date, "total": total, "records": records})
 
     graph_labels = [d["date"].strftime("%m/%d") for d in saving_history]
     graph_data = [d["total"] for d in saving_history]
@@ -158,6 +159,7 @@ def home(request):
 # --------------------
 # プロフィール
 # --------------------
+
 
 @login_required
 def profile(request):
@@ -208,6 +210,7 @@ def profile(request):
 # 貯金処理
 # --------------------
 
+
 @login_required
 def simple(request):
     if request.method == "POST":
@@ -255,6 +258,7 @@ def feeling(request):
 # --------------------
 # 設定系
 # --------------------
+
 
 @login_required
 def edit_target(request):
