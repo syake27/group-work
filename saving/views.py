@@ -2,12 +2,9 @@ from django.shortcuts import render, redirect
 from django.conf import settings
 from django.utils import timezone
 from django.db.models import Sum
-<<<<<<< Updated upstream
 from django.db.models.functions import Coalesce
 from django.contrib.auth import get_user_model
-=======
 from django.db.models.functions import TruncDate
->>>>>>> Stashed changes
 from django.views.decorators.http import require_POST
 from .forms import CustomUserCreationForm, ProfileEditForm
 from .models import SavingRecord, Method
