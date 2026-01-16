@@ -37,8 +37,8 @@
     </div>
 </div>
 <div class="profile-actions">
-    <button onclick="location.href='{% url "edit_target" %}'">目標金額の変更</button>
-    <button onclick="location.href='{% url "profile_edit" %}'">プロフィールの変更</button>
+    <button onclick="location.href='{% url 'edit_target' %}'">目標金額の変更</button>
+    <button onclick="location.href='{% url 'profile_edit' %}'">プロフィールの変更</button>
     <form method="post" action="{% url 'logout' %}">
         {% csrf_token %}
         <button type="submit" class="logout-btn">ログアウト</button>

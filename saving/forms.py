@@ -13,3 +13,6 @@ class ProfileEditForm(forms.ModelForm):
     class Meta:
         model = get_user_model()
         fields = ("username", "user_icon")
+        widgets = {
+            "user_icon": forms.FileInput(),
+        }
