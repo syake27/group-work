@@ -57,8 +57,11 @@
                 <div class="circle-wrapper">
                     <div class="progress-circle" style="--rate: {{ achievement_rate }};">
                         <div class="progress-inner">
-                            <p class="progress-label">達成率</p>
+                            {% if achievement_rate >= 100 %}
+                            <p class="progress-text">完了</p>
+                            {% else %}
                             <p class="progress-text">{{ achievement_rate }}%</p>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -153,38 +156,39 @@
     document.head.appendChild(chartScript);
 
     chartScript.onload = function () {
-        const historyData = {{ graph_data|safe }};
-        const ctx = document.getElementById('progressChart').getContext('2d');
-        new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: historyData.labels,
-                datasets: [{
-                    label: '貯金額（円）',
-                    data: historyData.data,
-                    borderColor: '#d7a640',
-                    backgroundColor: 'rgba(215, 166, 64, 0.1)',
-                    borderWidth: 2,
-                    fill: true,
-                    tension: 0.4,
-                    pointBackgroundColor: '#d7a640',
-                    pointBorderColor: '#af8118',
-                    pointRadius: 5,
-                    pointHoverRadius: 7
-                }]
-            },
-            options: {
-                responsive: true,
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        title: {
-                            display: true,
-                        }
+        const historyData = {{ graph_data| safe
+    }};
+    const ctx = document.getElementById('progressChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: historyData.labels,
+            datasets: [{
+                label: '貯金額（円）',
+                data: historyData.data,
+                borderColor: '#d7a640',
+                backgroundColor: 'rgba(215, 166, 64, 0.1)',
+                borderWidth: 2,
+                fill: true,
+                tension: 0.4,
+                pointBackgroundColor: '#d7a640',
+                pointBorderColor: '#af8118',
+                pointRadius: 5,
+                pointHoverRadius: 7
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
                     }
                 }
             }
-        });
+        }
+    });
     };
 
 </script>
