@@ -2,13 +2,13 @@
 {% load humanize %}
 {% load static %}
 
-{% block title %}貯金{% endblock %}
+{% block title %}プロフィール{% endblock %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'saving/profile.css' %}">
 {% endblock %}
 
-{% block header_title %}貯金{% endblock %}
+{% block header_title %}プロフィール{% endblock %}
 
 {% block content %}
 <div class="profile-container">
@@ -38,7 +38,7 @@
 </div>
 <div class="profile-actions">
     <button onclick="location.href='{% url "edit_target" %}'">目標金額の変更</button>
-    <button onclick="location.href='{% url "profile_edit" %}'">プロフィール編集</button>
+    <button onclick="location.href='{% url "profile_edit" %}'">プロフィールの変更</button>
     <form method="post" action="{% url 'logout' %}">
         {% csrf_token %}
         <button type="submit" class="logout-btn">ログアウト</button>

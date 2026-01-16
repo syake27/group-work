@@ -6,7 +6,7 @@ from django.db.models.functions import TruncDate, Coalesce
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
 from .models import SavingRecord, Method
-from .forms import CustomUserCreationForm
+from .forms import CustomUserCreationForm, ProfileEditForm
 from datetime import timedelta
 import json
 
@@ -304,4 +304,11 @@ def edit_target(request):
 
 @login_required
 def profile_edit(request):
-    return render(request, "saving/profile-edit.html")
+    if request.method == "POST":
+        form = ProfileEditForm(request.POST, request.FILES, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect("profile")
+    else:
+        form = ProfileEditForm(instance=request.user)
+    return render(request, "saving/profile-edit.html", {"form": form})
