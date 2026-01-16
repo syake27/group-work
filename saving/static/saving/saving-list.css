@@ -1,9 +1,17 @@
 .saving-item {
-    background-color: aqua;
-    border: 1px solid #d3d3d3;
+    background:linear-gradient(180deg, #d7df5f, #c59517);
+    border: 2px solid #c3a961;
     padding: 20px;
     margin: 20px 0;
     text-align: center;
     font-size: 1.5rem;
     border-radius: 20px;
+
 }
+
+.app-container {
+    background-color: #fbf9f2;
+
+}
+
+
