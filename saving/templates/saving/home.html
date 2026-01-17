@@ -137,7 +137,6 @@
         });
     });
 
-
     document.querySelectorAll('.history-header').forEach(header => {
         header.addEventListener('click', () => {
             const item = header.parentElement;
@@ -150,46 +149,41 @@
         });
     });
 
-    // 進捗グラフの描画
     const chartScript = document.createElement('script');
     chartScript.src = 'https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js';
     document.head.appendChild(chartScript);
 
     chartScript.onload = function () {
-        const historyData = {{ graph_data| safe
-    }};
-    const ctx = document.getElementById('progressChart').getContext('2d');
-    new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: historyData.labels,
-            datasets: [{
-                label: '貯金額（円）',
-                data: historyData.data,
-                borderColor: '#d7a640',
-                backgroundColor: 'rgba(215, 166, 64, 0.1)',
-                borderWidth: 2,
-                fill: true,
-                tension: 0.4,
-                pointBackgroundColor: '#d7a640',
-                pointBorderColor: '#af8118',
-                pointRadius: 5,
-                pointHoverRadius: 7
-            }]
-        },
-        options: {
-            responsive: true,
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    title: {
-                        display: true,
+        const historyData = {{ graph_data|safe }};
+        const ctx = document.getElementById('progressChart').getContext('2d');
+
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: historyData.labels,
+                datasets: [{
+                    label: '貯金額（円）',
+                    data: historyData.data,
+                    borderWidth: 2,
+                    fill: true,
+                    tension: 0.4,
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true
                     }
                 }
             }
-        }
-    });
+        });
     };
-
 </script>
+
 {% endblock %}
