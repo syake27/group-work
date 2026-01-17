@@ -1,8 +1,8 @@
 {% extends 'saving/base.html' %}
 {% load static %}
 
-{% block title %}プロフィール編集{% endblock %}
-{% block header_title %}編集{% endblock %}
+{% block title %}プロフィール変更{% endblock %}
+{% block header_title %}プロフィールの変更{% endblock %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'saving/profile-edit.css' %}">
@@ -15,9 +15,10 @@
         {{ form.non_field_errors }}
 
         <div class="profile-edit-preview">
-            <div class="profile-edit-icon"
-                {% if request.user.user_icon %}style="background-image: url('{{ request.user.user_icon.url }}');"{% endif %}>
+            <div class="profile-edit-icon" {% if request.user.user_icon %}
+                style="background-image: url('{{ request.user.user_icon.url }}');" {% endif %}>
             </div>
+
         </div>
 
         <div class="profile-edit-field">
