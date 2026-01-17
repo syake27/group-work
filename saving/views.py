@@ -43,8 +43,24 @@ def saving_list(request):
     return render(request, "saving/saving-list.html")
 
 
+@login_required
 def rps(request):
-    return render(request, "saving/rps.html")
+    amount = None
+    hand = None
+
+    if request.method == "POST":
+        amount = request.POST.get("amount")
+        hand = request.POST.get("hand")
+
+        # まずは受け取れるか確認
+        print("金額:", amount)
+        print("手:", hand)
+
+    return render(request, "saving/rps.html", {
+        "amount": amount,
+        "hand": hand,
+    })
+
 
 
 @login_required
