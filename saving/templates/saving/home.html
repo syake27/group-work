@@ -156,8 +156,7 @@
     document.head.appendChild(chartScript);
 
     chartScript.onload = function () {
-        const historyData = {{ graph_data| safe
-    }};
+        const historyData = {{ graph_data| safe}};
     const ctx = document.getElementById('progressChart').getContext('2d');
     new Chart(ctx, {
         type: 'line',
