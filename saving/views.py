@@ -9,6 +9,11 @@ from .models import SavingRecord, Method
 from .forms import CustomUserCreationForm, ProfileEditForm
 from datetime import timedelta
 import json
+import random
+# from django.utils import timezone
+# from django.contrib.auth.decorators import login_required
+# from .models import SavingRecord, Method
+
 
 
 # --------------------
@@ -45,21 +50,49 @@ def saving_list(request):
 
 @login_required
 def rps(request):
-    amount = None
-    hand = None
+    result = None
+    cpu_hand = None
+    diff = 0  # 増減額
 
     if request.method == "POST":
-        amount = request.POST.get("amount")
-        hand = request.POST.get("hand")
+        user_hand = request.POST.get("hand")
+        amount = int(request.POST.get("amount"))
 
-        # まずは受け取れるか確認
-        print("金額:", amount)
-        print("手:", hand)
+        cpu_hand = random.choice(["グー", "チョキ", "パー"])
+
+        if user_hand == cpu_hand:
+            result = "あいこ"
+            diff = 0
+
+        elif (
+            (user_hand == "グー" and cpu_hand == "チョキ") or
+            (user_hand == "チョキ" and cpu_hand == "パー") or
+            (user_hand == "パー" and cpu_hand == "グー")
+        ):
+            result = "勝ち"
+            diff = amount
+
+        else:
+            result = "負け"
+            diff = -amount
+
+        # あいこ以外だけ保存
+        if result != "あいこ":
+            method = Method.objects.get(method_name="ジャンケン貯金")
+
+            SavingRecord.objects.create(
+                user=request.user,
+                method=method,
+                amount=diff,
+                saved_at=timezone.localdate(),
+            )
 
     return render(request, "saving/rps.html", {
-        "amount": amount,
-        "hand": hand,
+        "result": result,
+        "cpu_hand": cpu_hand,
+        "diff": diff,
     })
+
 
 
 
