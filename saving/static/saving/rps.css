@@ -42,3 +42,10 @@ button:hover {
     border-radius: 8px;
     line-height: 1.6;
 }
+
+.rps-buttons {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+}
+

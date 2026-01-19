@@ -23,17 +23,23 @@
 <form method="post">
     {% csrf_token %}
 
+    {% if not amount %}
     <label>
         金額：
         <input type="number" name="amount" min="1" required>
     </label>
+    <br><br>
+    {% else %}
+    <p>設定金額：{{ amount }} 円</p>
+    {% endif %}
 
-    <div>
+    <div class="rps-buttons">
         <button type="submit" name="hand" value="グー">✊</button>
         <button type="submit" name="hand" value="チョキ">✌️</button>
         <button type="submit" name="hand" value="パー">✋</button>
     </div>
 </form>
+
 {% if amount %}
 <p>設定した金額：{{ amount }} 円</p>
 <p>選んだ手：{{ hand }}</p>
@@ -49,6 +55,7 @@
 <p>＋{{ diff }} 円 貯金しました 🎉</p>
 {% elif result == "負け" %}
 <p>{{ diff }} 円 引かれました 😢</p>
+<p>{{ diff }} 円 使ってください 😢</p>
 {% else %}
 <p>あいこ！もう一度勝負！</p>
 {% endif %}

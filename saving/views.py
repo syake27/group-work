@@ -10,9 +10,6 @@ from .forms import CustomUserCreationForm, ProfileEditForm
 from datetime import timedelta
 import json
 import random
-# from django.utils import timezone
-# from django.contrib.auth.decorators import login_required
-# from .models import SavingRecord, Method
 
 
 
@@ -48,17 +45,18 @@ def saving_list(request):
     return render(request, "saving/saving-list.html")
 
 
+
 @login_required
 def rps(request):
     result = None
     cpu_hand = None
-    diff = 0  # 増減額
+    diff = 0
 
     if request.method == "POST":
         user_hand = request.POST.get("hand")
-        amount = int(request.POST.get("amount"))
-
         cpu_hand = random.choice(["グー", "チョキ", "パー"])
+
+        BASE_AMOUNT = 100  # ← ジャンケン貯金の基本額
 
         if user_hand == cpu_hand:
             result = "あいこ"
@@ -70,15 +68,16 @@ def rps(request):
             (user_hand == "パー" and cpu_hand == "グー")
         ):
             result = "勝ち"
-            diff = amount
+            diff = BASE_AMOUNT
 
         else:
             result = "負け"
-            diff = -amount
+            diff = -BASE_AMOUNT
 
-        # あいこ以外だけ保存
-        if result != "あいこ":
-            method = Method.objects.get(method_name="ジャンケン貯金")
+        if diff != 0:
+            method, _ = Method.objects.get_or_create(
+                method_name="ジャンケン貯金"
+            )
 
             SavingRecord.objects.create(
                 user=request.user,
@@ -92,6 +91,7 @@ def rps(request):
         "cpu_hand": cpu_hand,
         "diff": diff,
     })
+
 
 
 
