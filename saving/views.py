@@ -9,6 +9,8 @@ from .models import SavingRecord, Method
 from .forms import CustomUserCreationForm, ProfileEditForm
 from datetime import timedelta
 import json
+import random
+
 
 
 # --------------------
@@ -43,8 +45,55 @@ def saving_list(request):
     return render(request, "saving/saving-list.html")
 
 
+
+@login_required
 def rps(request):
-    return render(request, "saving/rps.html")
+    result = None
+    cpu_hand = None
+    diff = 0
+
+    if request.method == "POST":
+        user_hand = request.POST.get("hand")
+        cpu_hand = random.choice(["グー", "チョキ", "パー"])
+
+        BASE_AMOUNT = 100  # ← ジャンケン貯金の基本額
+
+        if user_hand == cpu_hand:
+            result = "あいこ"
+            diff = 0
+
+        elif (
+            (user_hand == "グー" and cpu_hand == "チョキ") or
+            (user_hand == "チョキ" and cpu_hand == "パー") or
+            (user_hand == "パー" and cpu_hand == "グー")
+        ):
+            result = "勝ち"
+            diff = BASE_AMOUNT
+
+        else:
+            result = "負け"
+            diff = -BASE_AMOUNT
+
+        if diff != 0:
+            method, _ = Method.objects.get_or_create(
+                method_name="ジャンケン貯金"
+            )
+
+            SavingRecord.objects.create(
+                user=request.user,
+                method=method,
+                amount=diff,
+                saved_at=timezone.localdate(),
+            )
+
+    return render(request, "saving/rps.html", {
+        "result": result,
+        "cpu_hand": cpu_hand,
+        "diff": diff,
+    })
+
+
+
 
 
 @login_required
