@@ -60,6 +60,9 @@
 <p>あいこ！もう一度勝負！</p>
 {% endif %}
 {% endif %}
-
-
+{% if result == "勝ち" or result == "負け" %}
+<form method="get">
+    <button class="retry-button">もう一度する</button>
+</form>
+{% endif %}
 {% endblock %}

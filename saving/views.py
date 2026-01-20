@@ -44,45 +44,53 @@ def roulette(request):
 def saving_list(request):
     return render(request, "saving/saving-list.html")
 
-
-
 @login_required
 def rps(request):
     result = None
     cpu_hand = None
     diff = 0
-    amount = None
+
+    # まず session から金額を取得
+    amount = request.session.get("rps_amount")
 
     if request.method == "POST":
         user_hand = request.POST.get("hand")
-        amount = request.POST.get("amount")
 
-    if not amount:
-        return render(request, "saving/rps.html", {"result": None})
+        # 金額入力があれば更新（初回 or 勝敗後）
+        if "amount" in request.POST:
+            amount = int(request.POST["amount"])
+            request.session["rps_amount"] = amount
 
-    amount = int(amount)
-    cpu_hand = random.choice(["グー", "チョキ", "パー"])
+        if amount is None:
+            return render(request, "saving/rps.html")
 
-    if user_hand == cpu_hand:
-        result = "あいこ"
-        diff = 0
-    elif (
-        (user_hand == "グー" and cpu_hand == "チョキ") or
-        (user_hand == "チョキ" and cpu_hand == "パー") or
-        (user_hand == "パー" and cpu_hand == "グー")
-    ):
-        result = "勝ち"
-        diff = amount
-    else:
-        result = "負け"
-        diff = -amount
+        cpu_hand = random.choice(["グー", "チョキ", "パー"])
 
+        if user_hand == cpu_hand:
+            result = "あいこ"
+            diff = 0
+            # 👉 session は消さない
+
+        elif (
+            (user_hand == "グー" and cpu_hand == "チョキ") or
+            (user_hand == "チョキ" and cpu_hand == "パー") or
+            (user_hand == "パー" and cpu_hand == "グー")
+        ):
+            result = "勝ち"
+            diff = amount
+            # 👉 勝ったら金額リセット
+            request.session.pop("rps_amount", None)
+
+        else:
+            result = "負け"
+            diff = -amount
+            # 👉 負けたら金額リセット
+            request.session.pop("rps_amount", None)
 
         if diff != 0:
             method, _ = Method.objects.get_or_create(
                 method_name="ジャンケン貯金"
             )
-
             SavingRecord.objects.create(
                 user=request.user,
                 method=method,
@@ -94,9 +102,8 @@ def rps(request):
         "result": result,
         "cpu_hand": cpu_hand,
         "diff": diff,
+        "amount": amount,
     })
-
-
 
 
 
