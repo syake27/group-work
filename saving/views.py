@@ -44,23 +44,32 @@ def roulette(request):
 def saving_list(request):
     return render(request, "saving/saving-list.html")
 
-
-
 @login_required
 def rps(request):
     result = None
     cpu_hand = None
     diff = 0
 
+    # まず session から金額を取得
+    amount = request.session.get("rps_amount")
+
     if request.method == "POST":
         user_hand = request.POST.get("hand")
-        cpu_hand = random.choice(["グー", "チョキ", "パー"])
 
-        BASE_AMOUNT = 100  # ← ジャンケン貯金の基本額
+        # 金額入力があれば更新（初回 or 勝敗後）
+        if "amount" in request.POST:
+            amount = int(request.POST["amount"])
+            request.session["rps_amount"] = amount
+
+        if amount is None:
+            return render(request, "saving/rps.html")
+
+        cpu_hand = random.choice(["グー", "チョキ", "パー"])
 
         if user_hand == cpu_hand:
             result = "あいこ"
             diff = 0
+            # 👉 session は消さない
 
         elif (
             (user_hand == "グー" and cpu_hand == "チョキ") or
@@ -68,17 +77,20 @@ def rps(request):
             (user_hand == "パー" and cpu_hand == "グー")
         ):
             result = "勝ち"
-            diff = BASE_AMOUNT
+            diff = amount
+            # 👉 勝ったら金額リセット
+            request.session.pop("rps_amount", None)
 
         else:
             result = "負け"
-            diff = -BASE_AMOUNT
+            diff = -amount
+            # 👉 負けたら金額リセット
+            request.session.pop("rps_amount", None)
 
         if diff != 0:
             method, _ = Method.objects.get_or_create(
                 method_name="ジャンケン貯金"
             )
-
             SavingRecord.objects.create(
                 user=request.user,
                 method=method,
@@ -90,9 +102,8 @@ def rps(request):
         "result": result,
         "cpu_hand": cpu_hand,
         "diff": diff,
+        "amount": amount,
     })
-
-
 
 
 
