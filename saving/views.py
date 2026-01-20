@@ -51,28 +51,32 @@ def rps(request):
     result = None
     cpu_hand = None
     diff = 0
+    amount = None
 
     if request.method == "POST":
         user_hand = request.POST.get("hand")
-        cpu_hand = random.choice(["グー", "チョキ", "パー"])
+        amount = request.POST.get("amount")
 
-        BASE_AMOUNT = 100  # ← ジャンケン貯金の基本額
+    if not amount:
+        return render(request, "saving/rps.html", {"result": None})
 
-        if user_hand == cpu_hand:
-            result = "あいこ"
-            diff = 0
+    amount = int(amount)
+    cpu_hand = random.choice(["グー", "チョキ", "パー"])
 
-        elif (
-            (user_hand == "グー" and cpu_hand == "チョキ") or
-            (user_hand == "チョキ" and cpu_hand == "パー") or
-            (user_hand == "パー" and cpu_hand == "グー")
-        ):
-            result = "勝ち"
-            diff = BASE_AMOUNT
+    if user_hand == cpu_hand:
+        result = "あいこ"
+        diff = 0
+    elif (
+        (user_hand == "グー" and cpu_hand == "チョキ") or
+        (user_hand == "チョキ" and cpu_hand == "パー") or
+        (user_hand == "パー" and cpu_hand == "グー")
+    ):
+        result = "勝ち"
+        diff = amount
+    else:
+        result = "負け"
+        diff = -amount
 
-        else:
-            result = "負け"
-            diff = -BASE_AMOUNT
 
         if diff != 0:
             method, _ = Method.objects.get_or_create(
