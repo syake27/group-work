@@ -22,5 +22,6 @@ urlpatterns = [
     path("simple/", views.simple, name="simple"),
     path("dice/", views.dice, name="dice"),
     path("edit-target/", views.edit_target, name="edit_target"),
+    path("lp/", views.lp, name="lp"),
     path("profile-edit/", views.profile_edit, name="profile_edit"),
 ]
