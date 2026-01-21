@@ -28,7 +28,8 @@ SECRET_KEY = "django-insecure-c4v^4bc0u%o3&7l08e*$vv5wy^v)(hf)2rvs7zrz8!yt0eqeft
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["localhost", "127.0.0.1", "192.168.11.18", "0.0.0.0"]
+ALLOWED_HOSTS = (os.environ.get("ALLOWED_HOSTS") or "").split(",")  # deploy for Railway
+CSRF_TRUSTED_ORIGINS = (os.environ.get("CSRF_TRUSTED_ORIGINS") or "").split(",")
 
 
 # Application definition
@@ -40,12 +41,13 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    'django.contrib.humanize',
+    "django.contrib.humanize",
     "saving",
 ]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -53,6 +55,8 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
+
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 ROOT_URLCONF = "config.urls"
 
@@ -76,17 +80,20 @@ WSGI_APPLICATION = "config.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
+DATABASE_HOST = os.environ.get("DB_HOST")
+DATABASE_NAME = os.environ.get("DB_NAME")
+DATABASE_USER = os.environ.get("DB_USER")
+DATABASE_PASSWORD = os.environ.get("DB_PASSWORD")
+DATABASE_PORT = os.environ.get("DB_PORT") or "3306"
+
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
-        "NAME": os.getenv("DB_NAME"),
-        "USER": os.getenv("DB_USER"),
-        "PASSWORD": os.getenv("DB_PASSWORD"),
-        "HOST": os.getenv("DB_HOST"),
-        "PORT": os.getenv("DB_PORT"),
-        "OPTIONS": {
-            "charset": "utf8mb4",
-        },
+        "NAME": DATABASE_NAME,
+        "USER": DATABASE_USER,
+        "PASSWORD": DATABASE_PASSWORD,
+        "HOST": DATABASE_HOST,
+        "PORT": DATABASE_PORT,
     }
 }
 
@@ -125,6 +132,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = "/static/"
+STATIC_ROOT = BASE_DIR / "staticfiles"
+STATICFILES_DIRS = [BASE_DIR / "static"]
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
@@ -143,3 +152,12 @@ try:
     from .local_settings import *
 except ImportError:
     pass
+
+if (os.environ.get("ENABLE_BASIC_AUTH") or "false") == "true":
+    print(
+        f"Enable Basic Auth Middleware in settings.py {os.environ.get('ENABLE_BASIC_AUTH')}"
+    )
+    MIDDLEWARE.append("basicauth.middleware.BasicAuthMiddleware")
+    BASICAUTH_USERS = {
+        os.environ.get("BASIC_AUTH_USERNAME"): os.environ.get("BASIC_AUTH_PASSWORD"),
+    }
