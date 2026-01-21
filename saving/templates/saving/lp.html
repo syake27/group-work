@@ -1,0 +1,121 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <title>貯金アプリ LP</title>
+    <link rel="stylesheet" href="{% static 'saving/reset.css' %}">
+    <link rel="stylesheet" href="{% static 'saving/lp.css' %}">
+</head>
+
+<body>
+
+    <!-- ヒーローセクション -->
+    <header class="hero">
+        <h1>楽しく！いろんな貯金ができる貯金アプリ</h1>
+        <p>
+            目標を決めて、楽しみながら続けられる<br>
+            チーム開発で制作中のWeb貯金アプリ
+        </p>
+        <a href="#features" class="btn">主な機能を見る</a>
+    </header>
+
+    <main>
+        <!-- このアプリについて -->
+        <section id="about" class="section">
+            <h2>どんなアプリ？</h2>
+            <p>
+                本アプリは、目標を決めて貯金したい人や、<br>
+                楽しく貯金を続けたい人のための貯金アプリです。<br>
+                貯金額を数字だけでなく、見た目でも実感できるように設計しています。
+            </p>
+        </section>
+
+        <!-- 困りごと -->
+        <section id="problem" class="section">
+            <h2>こんな悩みはありませんか？</h2>
+            <ul class="problem-list">
+                <li>貯金しても成果が目に見えず、達成感がない</li>
+                <li>貯金を始めてもなかなか続かない</li>
+                <li>毎回同じ貯金方法で飽きてしまう</li>
+            </ul>
+        </section>
+
+        <!-- 解決・価値 -->
+        <section id="solution" class="section">
+            <h2>このアプリで悩みをどう解決できるのか</h2>
+            <p>
+                このアプリでは、貯金の進捗が一目で分かり、<br>
+                「どのくらい貯まったのか」を実感しやすくなっています。<br>
+                楽しみながら貯金を続けられる工夫を取り入れています。
+            </p>
+            <ul class="solution-list">
+                <li>貯金額を数字だけでなく視覚的にも確認できる</li>
+                <li>複数の貯金方法から選べて飽きにくい</li>
+                <li>目標設定により達成感を得やすい</li>
+            </ul>
+        </section>
+
+        <!-- 主な機能 -->
+        <section id="features" class="section">
+            <h2>主な機能</h2>
+            <div class="feature-cards">
+
+                <div class="card">
+                    <div class="card-img">
+                        <img src="{% static 'saving/placeholder.png' %}" alt="">
+                    </div>
+                    <h3>-----------</h3>
+                    <p>------------------------------</p>
+                    <a href="#" class="btn small">詳細を見る</a>
+                </div>
+
+                <div class="card">
+                    <div class="card-img">
+                        <img src="{% static 'saving/placeholder.png' %}" alt="">
+                    </div>
+                    <h3>-----------</h3>
+                    <p>------------------------------</p>
+                    <a href="#" class="btn small">詳細を見る</a>
+                </div>
+
+                <div class="card">
+                    <div class="card-img">
+                        <img src="{% static 'saving/placeholder.png' %}" alt="">
+                    </div>
+                    <h3>-----------</h3>
+                    <p>------------------------------</p>
+                    <a href="#" class="btn small">詳細を見る</a>
+                </div>
+
+                <div class="card">
+                    <div class="card-img">
+                        <img src="{% static 'saving/placeholder.png' %}" alt="">
+                    </div>
+                    <h3>-----------</h3>
+                    <p>------------------------------</p>
+                    <a href="#" class="btn small">詳細を見る</a>
+                </div>
+
+                <div class="card">
+                    <div class="card-img">
+                        <img src="{% static 'saving/placeholder.png' %}" alt="">
+                    </div>
+                    <h3>-----------</h3>
+                    <p>------------------------------</p>
+                    <a href="#" class="btn small">詳細を見る</a>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="footer">
+        <p>Team ○○</p>
+    </footer>
+
+</body>
+
+</html>
