@@ -10,11 +10,27 @@
 {% block header_title %}気分貯金{% endblock %}
 
 {% block content %}
-<h1>今日の気分を選んでください</h1>
+<p class="feeling-description">
+    気分に応じて設定した金額を貯金！<br>
+</p>
 <form method="post">
     {% csrf_token %}
-    <button type="submit" name="mood" value="元気！！">😄</button>
-    <button type="submit" name="mood" value="普通">😐</button>
-    <button type="submit" name="mood" value="悲しい、、">😩</button>
+
+    {# まだ金額が未設定の場合 #}
+    {% if not amount %}
+        <p>最初に貯金する金額を設定してください</p>
+        <input type="number" name="amount" min="1" required>
+        <button type="submit">金額を決定</button>
+
+    {# 金額が設定済みの場合 #}
+    {% else %}
+        <p>設定金額：¥{{ amount }}</p>
+        <input type="hidden" name="amount" value="{{ amount }}">
+
+        <p>今日の気分を選んでください</p>
+        <button type="submit" name="mood" value="元気！！">😄</button>
+        <button type="submit" name="mood" value="普通">😐</button>
+        <button type="submit" name="mood" value="悲しい、、">😩</button>
+    {% endif %}
 </form>
 {% endblock %}
