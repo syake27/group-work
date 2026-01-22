@@ -23,7 +23,7 @@ run:
     - name: BASIC_AUTH_PASSWORD
       value: "python-2025"
     - name: DJANGO_SUPERUSER_EMAIL
-      value: ""
+      value: "a@a.a"
   secrets:
     - name: DB_HOST
       value-from: "arn:aws:secretsmanager:ap-northeast-1:897722665268:secret:prod/python-2025/mysql-ZpTVYM:host::"
