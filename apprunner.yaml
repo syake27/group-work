@@ -39,6 +39,6 @@ run:
       value-from: "arn:aws:secretsmanager:ap-northeast-1:897722665268:secret:prod/python-2025/admin-K3rFbb:password::"
   pre-run:
     - dnf install -y mariadb105-devel
-  command: sh entrypoint.sh
+  command: sh -x entrypoint.sh
   network:
     port: 8000
