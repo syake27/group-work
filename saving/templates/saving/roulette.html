@@ -1,5 +1,6 @@
 {% extends 'saving/base.html' %}
 {% load static %}
+{% load humanize %}
 
 {% block title %}
 ルーレット貯金
@@ -15,9 +16,19 @@
 
 {% block content %}
 <div class="roulette-container">
-    <p id="amount">100円</p>
+    <p id="amount">
+        {% if last_amount %}{{ last_amount }}円{% else %}100円{% endif %}
+    </p>
     <button id="roulette-btn">スタート</button>
 </div>
+
+<form id="roulette-form" method="post" class="roulette-form">
+    {% csrf_token %}
+    <input type="hidden" name="amount" id="roulette-amount" value="">
+    {% if saved_amount %}
+        <p class="roulette-message">¥{{ saved_amount|intcomma }} を貯金しました！</p>
+    {% endif %}
+</form>
 
 <!-- JS読み込みはdeferで問題なし -->
 <script src="{% static 'saving/roulette.js' %}" defer></script>

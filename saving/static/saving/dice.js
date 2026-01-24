@@ -3,6 +3,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const diceResult = document.getElementById('dice-result');
     const moneyDisplay = document.getElementById('money');
     const diceBtn = document.getElementById('dice-btn');
+    const diceForm = document.getElementById('dice-form');
+    const diceAmountInput = document.getElementById('dice-amount');
+    const diceMessage = document.getElementById('dice-message');
+    const csrfToken = diceForm.querySelector('input[name="csrfmiddlewaretoken"]')?.value;
+    let isSubmitting = false;
 
     let isRolling = false;
 
@@ -37,8 +42,30 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
 
                 moneyDisplay.textContent = `${money}円`;
+                diceAmountInput.value = money;
                 diceBtn.textContent = 'サイコロを振る';
                 isRolling = false;
+                if (!isSubmitting) {
+                    isSubmitting = true;
+                    fetch(diceForm.action || window.location.href, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                            'X-Requested-With': 'XMLHttpRequest',
+                            'X-CSRFToken': csrfToken || '',
+                        },
+                        body: new URLSearchParams({ amount: String(money) }).toString(),
+                    })
+                        .then((res) => res.json())
+                        .then((data) => {
+                            if (data && typeof data.saved_amount === 'number') {
+                                diceMessage.textContent = `¥${data.saved_amount.toLocaleString()} を貯金しました！`;
+                            }
+                        })
+                        .finally(() => {
+                            isSubmitting = false;
+                        });
+                }
             }
         }
 

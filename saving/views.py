@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.http import JsonResponse
 from django.conf import settings
 from django.utils import timezone
 from django.db.models import Sum
@@ -33,12 +34,62 @@ def base(request):
     return render(request, "saving/base.html")
 
 
+@login_required
 def dice(request):
-    return render(request, "saving/dice.html")
+    if request.method == "POST":
+        amount_raw = request.POST.get("amount")
+        try:
+            amount = int(amount_raw)
+        except (TypeError, ValueError):
+            amount = 0
+
+        if amount > 0:
+            method, _ = Method.objects.get_or_create(method_name="予想サイコロ貯金")
+            SavingRecord.objects.create(
+                user=request.user,
+                method=method,
+                amount=amount,
+                saved_at=timezone.localdate(),
+            )
+            if request.headers.get("x-requested-with") == "XMLHttpRequest":
+                return JsonResponse({"saved_amount": amount})
+            request.session["dice_saved_amount"] = amount
+
+        return redirect("dice")
+
+    saved_amount = request.session.pop("dice_saved_amount", None)
+    return render(request, "saving/dice.html", {"saved_amount": saved_amount})
 
 
+@login_required
 def roulette(request):
-    return render(request, "saving/roulette.html")
+    if request.method == "POST":
+        amount_raw = request.POST.get("amount")
+        try:
+            amount = int(amount_raw)
+        except (TypeError, ValueError):
+            amount = 0
+
+        if amount > 0:
+            method, _ = Method.objects.get_or_create(method_name="ルーレット貯金")
+            SavingRecord.objects.create(
+                user=request.user,
+                method=method,
+                amount=amount,
+                saved_at=timezone.localdate(),
+            )
+            request.session["roulette_saved_amount"] = amount
+            request.session["roulette_last_amount"] = amount
+
+        return redirect("roulette")
+
+    saved_amount = request.session.pop("roulette_saved_amount", None)
+    last_amount = request.session.get("roulette_last_amount")
+    return render(
+        request,
+        "saving/roulette.html",
+        {"saved_amount": saved_amount, "last_amount": last_amount},
+    )
 
 
 def saving_list(request):
