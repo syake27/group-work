@@ -423,3 +423,7 @@ def profile_edit(request):
     else:
         form = ProfileEditForm(instance=request.user)
     return render(request, "saving/profile-edit.html", {"form": form})
+
+
+def lp(request):
+    return render(request, "saving/lp.html")

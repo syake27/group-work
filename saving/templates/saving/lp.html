@@ -1,0 +1,125 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <title>貯金アプリ LP</title>
+    <link rel="stylesheet" href="{% static 'saving/reset.css' %}">
+    <link rel="stylesheet" href="{% static 'saving/lp.css' %}">
+</head>
+
+<body>
+
+    <!-- ヒーローセクション -->
+    <header class="hero">
+        <h1>楽しく！いろんな貯金ができる貯金アプリ</h1>
+        <p>
+            目標を決めて、楽しみながら続けられる<br>
+            チーム開発で制作中のWeb貯金アプリ
+        </p>
+        <a href="#features" class="btn">主な機能を見る</a>
+    </header>
+
+    <main>
+        <!-- このアプリについて -->
+        <section id="about" class="section">
+            <h2>どんなアプリ？</h2>
+            <p>
+                本アプリは、目標を決めて貯金したい人や、<br>
+                楽しく貯金を続けたい人のための貯金アプリです。<br>
+                貯金額を数字だけでなく、見た目でも実感できるように設計しています。
+            </p>
+        </section>
+
+        <!-- 困りごと -->
+        <section id="problem" class="section">
+            <h2>こんな悩みはありませんか？</h2>
+            <ul class="problem-list">
+                <li>貯金しても成果が目に見えず、達成感がない</li>
+                <li>貯金を始めてもなかなか続かない</li>
+                <li>毎回同じ貯金方法で飽きてしまう</li>
+            </ul>
+        </section>
+
+        <!-- 解決・価値 -->
+        <section id="solution" class="section">
+            <h2>このアプリで悩みをどう解決できるのか</h2>
+            <p>
+                このアプリでは、貯金の進捗が一目で分かり、<br>
+                「どのくらい貯まったのか」を実感しやすくなっています。<br>
+                楽しみながら貯金を続けられる工夫を取り入れています。
+            </p>
+            <ul class="solution-list">
+                <li>貯金額を数字だけでなく視覚的にも確認できる</li>
+                <li>複数の貯金方法から選べて飽きにくい</li>
+                <li>目標設定により達成感を得やすい</li>
+            </ul>
+        </section>
+
+        <!-- 主な機能 -->
+        <section id="features" class="section">
+            <h2>主な機能</h2>
+
+            <div class="feature-detail">
+
+                <!-- ① 目標金額設定 -->
+                <div class="feature-item">
+                    <div class="feature-img">
+                        <img src="/media/user_icons/kingaku.png" alt="目標金額設定画面">
+                    </div>
+                    <div class="feature-text">
+                        <h3>目標金額を設定して、貯金を「見える化」</h3>
+                        <p>
+                            目標金額を設定すると、<br>
+                            現在の貯金額や達成率がひと目で分かります。<br>
+                            数字だけでなく進捗が可視化されることで、<br>
+                            達成感を感じながら貯金を続けられます。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- ② 多彩な貯金方法 -->
+                <div class="feature-item reverse">
+                    <div class="feature-img">
+                        <img src="/media/user_icons/tyokin.png" alt="貯金方法一覧画面">
+                    </div>
+                    <div class="feature-text">
+                        <h3>選べる、多彩な貯金方法</h3>
+                        <p>
+                            シンプル貯金から、<br>
+                            ルーレット・じゃんけん・サイコロなど、<br>
+                            ゲーム感覚で楽しめる貯金方法を用意しています。<br>
+                            その日の気分に合わせて、楽しく貯金ができます。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- ③ ランキング -->
+                <div class="feature-item">
+                    <div class="feature-img">
+                        <img src="/media/user_icons/rankingu.png" alt="ランキング画面">
+                    </div>
+                    <div class="feature-text">
+                        <h3>ランキングで、楽しみながら継続</h3>
+                        <p>
+                            貯金金額に応じたランキングを表示します。<br>
+                            他のユーザーと順位を競い合うことで、<br>
+                            ゲーム感覚でモチベーションを保ちながら<br>
+                            貯金を続けることができます。
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="footer">
+        <p>Team</p>
+    </footer>
+
+</body>
+
+</html>
