@@ -55,29 +55,6 @@ body {
     margin-top: 40px;
 }
 
-.card {
-    background-color: #fff;
-    border-radius: 10px;
-    padding: 20px;
-    width: 250px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    text-align: center;
-}
-
-.card h3 {
-    margin: 15px 0 10px;
-}
-
-.card p {
-    font-size: 0.95rem;
-    margin-bottom: 15px;
-}
-
-.card-img img {
-    width: 100%;
-    border-radius: 5px;
-}
-
 /* 小ボタン */
 .btn.small {
     padding: 5px 10px;
@@ -200,17 +177,71 @@ body {
     margin-bottom: 20px;
 }
 
-/* 機能カードセクションの余白 */
-#features {
-    padding-top: 120px;
+/* 主な機能（詳細説明） */
+.feature-detail {
+    display: flex;
+    flex-direction: column;
+    gap: 80px;
+    /* ← 3つをしっかり分ける */
+    margin-top: 60px;
 }
 
-/* カード内の文字間 */
-.card h3 {
-    margin-top: 20px;
+.feature-item {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+#features {
+    background-color: #f2f4ff;
+}
+
+.section {
+    padding: 100px 20px;
+}
+
+
+.feature-item.reverse {
+    flex-direction: row-reverse;
+}
+
+.feature-img img {
+    width: 280px;
+    height: auto;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+}
+
+.feature-text {
+    text-align: left;
+}
+
+.feature-text h3 {
+    font-size: 1.6rem;
     margin-bottom: 15px;
 }
 
-.card p {
-    line-height: 1.6;
+.feature-text p {
+    font-size: 1.05rem;
+    line-height: 1.8;
+}
+
+/* スマホ対応 */
+@media screen and (max-width: 768px) {
+
+    .feature-item,
+    .feature-item.reverse {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .feature-text {
+        text-align: center;
+    }
+
+    .feature-item {
+        margin-bottom: 80px;
+    }
 }
