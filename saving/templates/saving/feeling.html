@@ -19,7 +19,7 @@
     {# まだ金額が未設定の場合 #}
     {% if not amount %}
         <p>最初に貯金する金額を設定してください</p>
-        <input type="number" name="amount" min="1" required>
+        <input type="number" name="amount" min="1" required class="amount-input">
         <button type="submit">金額を決定</button>
 
     {# 金額が設定済みの場合 #}
