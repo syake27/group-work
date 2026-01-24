@@ -59,3 +59,14 @@
     box-shadow: none;
     transform: translateY(4px);
 }
+
+.dice-form {
+    text-align: center;
+    margin-top: 16px;
+}
+
+.dice-message {
+    margin-top: 12px;
+    color: #2e7d32;
+    font-weight: bold;
+}

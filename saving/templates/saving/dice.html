@@ -1,5 +1,6 @@
 {% extends 'saving/base.html' %}
 {% load static %}
+{% load humanize %}
 
 {% block title %}予想サイコロ貯金{% endblock %}
 {% block header_title %}予想サイコロ貯金{% endblock %}
@@ -28,6 +29,16 @@
 
     <button id="dice-btn">サイコロを振る</button>
 </div>
+
+<form id="dice-form" method="post" class="dice-form">
+    {% csrf_token %}
+    <input type="hidden" name="amount" id="dice-amount" value="">
+    <p class="dice-message" id="dice-message">
+        {% if saved_amount %}
+            ¥{{ saved_amount|intcomma }} を貯金しました！
+        {% endif %}
+    </p>
+</form>
 
 <script src="{% static 'saving/dice.js' %}" defer></script>
 {% endblock %}
