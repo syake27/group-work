@@ -55,6 +55,32 @@ body {
     margin-top: 40px;
 }
 
+<<<<<<< HEAD
+=======
+.card {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    width: 250px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.card h3 {
+    margin: 15px 0 10px;
+}
+
+.card p {
+    font-size: 0.95rem;
+    margin-bottom: 15px;
+}
+
+.card-img img {
+    width: 100%;
+    border-radius: 5px;
+}
+
+>>>>>>> 9aaa59a2402106a2d59427ee1f4c7d4b20ffa58d
 /* 小ボタン */
 .btn.small {
     padding: 5px 10px;
@@ -177,6 +203,7 @@ body {
     margin-bottom: 20px;
 }
 
+<<<<<<< HEAD
 /* 主な機能（詳細説明） */
 .feature-detail {
     display: flex;
@@ -244,4 +271,19 @@ body {
     .feature-item {
         margin-bottom: 80px;
     }
+=======
+/* 機能カードセクションの余白 */
+#features {
+    padding-top: 120px;
+}
+
+/* カード内の文字間 */
+.card h3 {
+    margin-top: 20px;
+    margin-bottom: 15px;
+}
+
+.card p {
+    line-height: 1.6;
+>>>>>>> 9aaa59a2402106a2d59427ee1f4c7d4b20ffa58d
 }
