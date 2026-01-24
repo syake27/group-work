@@ -24,3 +24,9 @@ button:hover {
     border-radius: 8px;
     line-height: 1.6;
 }
+
+.amount-input {
+  border: 1px solid #ccc;
+  margin-top: 10px;
+  padding: 8px;
+}
