@@ -22,6 +22,8 @@ run:
       value: "admin"
     - name: BASIC_AUTH_PASSWORD
       value: "python-2025"
+    - name: DJANGO_SUPERUSER_EMAIL
+      value: "a@a.a"
   secrets:
     - name: DB_HOST
       value-from: "arn:aws:secretsmanager:ap-northeast-1:897722665268:secret:prod/python-2025/mysql-ZpTVYM:host::"
@@ -31,8 +33,12 @@ run:
       value-from: "arn:aws:secretsmanager:ap-northeast-1:897722665268:secret:prod/python-2025/mysql-ZpTVYM:username::"
     - name: DB_PASSWORD
       value-from: "arn:aws:secretsmanager:ap-northeast-1:897722665268:secret:prod/python-2025/mysql-ZpTVYM:password::"
+    - name: DJANGO_SUPERUSER_USERNAME
+      value-from: "arn:aws:secretsmanager:ap-northeast-1:897722665268:secret:prod/python-2025/admin-K3rFbb:username::"
+    - name: DJANGO_SUPERUSER_PASSWORD
+      value-from: "arn:aws:secretsmanager:ap-northeast-1:897722665268:secret:prod/python-2025/admin-K3rFbb:password::"
   pre-run:
     - dnf install -y mariadb105-devel
-  command: sh entrypoint.sh
+  command: sh -x entrypoint.sh
   network:
     port: 8000

@@ -1,0 +1,289 @@
+/* 全体 */
+body {
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+/* ヒーロー */
+.hero {
+    text-align: center;
+    padding: 80px 20px;
+    background-color: #6c63ff;
+    color: #fff;
+}
+
+.hero h1 {
+    font-size: 2.0rem;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+}
+
+.hero .btn {
+    padding: 10px 20px;
+    background-color: #fff;
+    color: #6c63ff;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+/* セクション */
+.section {
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.section h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.section p {
+    font-size: 1.1rem;
+}
+
+/* 機能カード */
+.feature-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 40px;
+}
+
+<<<<<<< HEAD
+=======
+.card {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    width: 250px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.card h3 {
+    margin: 15px 0 10px;
+}
+
+.card p {
+    font-size: 0.95rem;
+    margin-bottom: 15px;
+}
+
+.card-img img {
+    width: 100%;
+    border-radius: 5px;
+}
+
+>>>>>>> 9aaa59a2402106a2d59427ee1f4c7d4b20ffa58d
+/* 小ボタン */
+.btn.small {
+    padding: 5px 10px;
+    font-size: 0.9rem;
+}
+
+/* フッター */
+.footer {
+    text-align: center;
+    padding: 30px 0;
+    background-color: #eee;
+    margin-top: 50px;
+}
+
+/* セクション背景のバリエーション */
+#problem {
+    background-color: #ffffff;
+}
+
+#solution {
+    background-color: #f0f4ff;
+}
+
+/* 困りごと・解決リスト */
+.problem-list,
+.solution-list {
+    list-style: none;
+    max-width: 600px;
+    margin: 30px auto 0;
+    padding: 0;
+}
+
+.problem-list li,
+.solution-list li {
+    background-color: #fff;
+    padding: 15px 20px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    font-size: 1rem;
+    text-align: left;
+}
+
+/* 解決リストは少しポジティブ感 */
+.solution-list li {
+    border-left: 5px solid #6c63ff;
+}
+
+/* ヒーローボタン hover */
+.hero .btn:hover {
+    background-color: #e6e6ff;
+}
+
+/* 機能カード hover */
+.card:hover {
+    transform: translateY(-5px);
+    transition: 0.3s;
+}
+
+/* ボタン共通 hover */
+.btn:hover {
+    opacity: 0.85;
+}
+
+/* レスポンシブ（スマホ） */
+@media screen and (max-width: 768px) {
+    .hero {
+        padding: 60px 15px;
+    }
+
+    .hero h1 {
+        font-size: 1.6rem;
+    }
+
+    .section h2 {
+        font-size: 1.5rem;
+    }
+
+    .card {
+        width: 100%;
+        max-width: 300px;
+    }
+}
+
+
+/* セクション同士の余白を増やす */
+.section {
+    padding: 100px 20px;
+    /* 60px → 100px に */
+}
+
+/* 見出し下の余白を広めに */
+.section h2 {
+    margin-bottom: 40px;
+}
+
+/* 本文の行間と余白 */
+.section p {
+    line-height: 1.8;
+    margin-bottom: 30px;
+}
+
+/* 困りごと・解決セクションの中の余白 */
+#problem,
+#solution {
+    padding-top: 120px;
+    padding-bottom: 120px;
+}
+
+/* リスト全体の余白 */
+.problem-list,
+.solution-list {
+    margin-top: 50px;
+}
+
+/* リスト項目の余白をゆったり */
+.problem-list li,
+.solution-list li {
+    padding: 20px 25px;
+    margin-bottom: 20px;
+}
+
+<<<<<<< HEAD
+/* 主な機能（詳細説明） */
+.feature-detail {
+    display: flex;
+    flex-direction: column;
+    gap: 80px;
+    /* ← 3つをしっかり分ける */
+    margin-top: 60px;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+#features {
+    background-color: #f2f4ff;
+}
+
+.section {
+    padding: 100px 20px;
+}
+
+
+.feature-item.reverse {
+    flex-direction: row-reverse;
+}
+
+.feature-img img {
+    width: 280px;
+    height: auto;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+}
+
+.feature-text {
+    text-align: left;
+}
+
+.feature-text h3 {
+    font-size: 1.6rem;
+    margin-bottom: 15px;
+}
+
+.feature-text p {
+    font-size: 1.05rem;
+    line-height: 1.8;
+}
+
+/* スマホ対応 */
+@media screen and (max-width: 768px) {
+
+    .feature-item,
+    .feature-item.reverse {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .feature-text {
+        text-align: center;
+    }
+
+    .feature-item {
+        margin-bottom: 80px;
+    }
+=======
+/* 機能カードセクションの余白 */
+#features {
+    padding-top: 120px;
+}
+
+/* カード内の文字間 */
+.card h3 {
+    margin-top: 20px;
+    margin-bottom: 15px;
+}
+
+.card p {
+    line-height: 1.6;
+>>>>>>> 9aaa59a2402106a2d59427ee1f4c7d4b20ffa58d
+}

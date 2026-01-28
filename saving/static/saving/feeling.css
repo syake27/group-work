@@ -56,3 +56,9 @@ body {
   color: #555;
   text-decoration: underline;
 }
+
+.amount-input {
+  border: 1px solid #ccc;
+  margin-top: 10px;
+  padding: 8px;
+}

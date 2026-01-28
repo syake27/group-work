@@ -13,10 +13,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const rouletteBtn = document.getElementById('roulette-btn');
     const amountDisplay = document.getElementById('amount');
+    const amountInput = document.getElementById('roulette-amount');
+    const rouletteForm = document.getElementById('roulette-form');
+    let isSubmitting = false;
+
+    const initialValue = parseInt(amountDisplay.textContent.replace(/\D/g, ''), 10);
+    if (!Number.isNaN(initialValue)) {
+        amountInput.value = initialValue;
+    }
 
     function spin() {
+        if (!isRunning && !isStopping) {
+            return;
+        }
         const randomIndex = Math.floor(Math.random() * amounts.length);
         amountDisplay.textContent = `${amounts[randomIndex]}円`;
+        amountInput.value = amounts[randomIndex];
 
         if (isRunning || isStopping) {
             timeoutId = setTimeout(spin, speed);
@@ -46,7 +58,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (speed >= 450) { // ← 最終スピードを大きく
                     clearInterval(decelerate);
                     isStopping = false;
+                    isRunning = false;
+                    if (timeoutId) {
+                        clearTimeout(timeoutId);
+                        timeoutId = null;
+                    }
                     rouletteBtn.textContent = 'スタート';
+                    if (!isSubmitting && amountInput.value) {
+                        const displayValue = parseInt(amountDisplay.textContent.replace(/\D/g, ''), 10);
+                        if (!Number.isNaN(displayValue)) {
+                            amountInput.value = displayValue;
+                        }
+                        isSubmitting = true;
+                        rouletteForm.submit();
+                    }
                 }
             }, 250);               // ← 間隔も少し長く
 

@@ -26,3 +26,14 @@
     background-color: #d99730;
     color: #fff;
 }
+
+.roulette-form {
+    text-align: center;
+    margin-top: 24px;
+}
+
+.roulette-message {
+    margin-top: 12px;
+    color: #2e7d32;
+    font-weight: bold;
+}
