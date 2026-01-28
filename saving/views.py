@@ -9,9 +9,13 @@ from django.contrib.auth import get_user_model
 from .models import SavingRecord, Method
 from .forms import CustomUserCreationForm, ProfileEditForm
 from datetime import timedelta
+from datetime import date
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect
+from django.utils import timezone
+from .models import SavingRecord, Method
 import json
 import random
-
 
 
 # --------------------
@@ -94,6 +98,7 @@ def roulette(request):
 
 def saving_list(request):
     return render(request, "saving/saving-list.html")
+
 
 @login_required
 def rps(request):
@@ -229,6 +234,8 @@ def get_total_saving(user):
 
 @login_required
 def home(request):
+    request.session.pop("last_saved_amount", None)
+
     # 連続貯金日数の計算
     dates = (
         SavingRecord.objects.filter(user=request.user)
@@ -374,16 +381,33 @@ def simple(request):
 @login_required
 def feeling(request):
     if request.method == "POST":
+
+        # ★金額リセット
+        if "reset" in request.POST:
+            request.session.pop("feeling_amounts", None)
+            return redirect("feeling")
+
+        # 金額設定フェーズ
+        if "mood" not in request.POST:
+            request.session["feeling_amounts"] = {
+                "happy": int(request.POST["happy_amount"]),
+                "normal": int(request.POST["normal_amount"]),
+                "sad": int(request.POST["sad_amount"]),
+            }
+            return redirect("feeling")
+
+        # 気分選択フェーズ
         mood = request.POST.get("mood")
+        amounts = request.session.get("feeling_amounts")
 
-        if mood == "元気！！":
-            amount = 500
-        elif mood == "普通":
-            amount = 200
-        else:
-            amount = 100
+        if not amounts or mood not in amounts:
+            return redirect("feeling")
 
-        method = Method.objects.get(method_name="気分貯金")
+        amount = amounts[mood]
+
+        method, _ = Method.objects.get_or_create(
+            method_name="気分貯金"
+        )
 
         SavingRecord.objects.create(
             user=request.user,
@@ -392,9 +416,11 @@ def feeling(request):
             saved_at=timezone.localdate(),
         )
 
-        return render(request, "saving/simple_done.html", {"amount": amount})
+        request.session["last_saved_amount"] = amount
 
-    return render(request, "saving/feeling.html")
+    return render(request, "saving/feeling.html", {
+        "amounts": request.session.get("feeling_amounts")
+    })
 
 
 # --------------------
