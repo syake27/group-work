@@ -17,62 +17,57 @@
 <form method="post">
     {% csrf_token %}
 
-    {# まだ金額が未設定の場合 #}
+    {# 金額が未設定の場合 #}
     {% if not amounts %}
-    <p>気分ごとの貯金金額を設定してください</p>
+        <p>気分ごとの貯金金額を設定してください</p>
 
-    <div class="amount-setting">
-        <label>😄 元気！！</label>
-        <input type="number" name="happy_amount" min="0" required>
-    </div>
+        <div class="amount-setting">
+            <label>😄 元気！！</label>
+            <input type="number" name="happy_amount" min="0" required>
+        </div>
 
-    <div class="amount-setting">
-        <label>😐 普通</label>
-        <input type="number" name="normal_amount" min="0" required>
-    </div>
+        <div class="amount-setting">
+            <label>😐 普通</label>
+            <input type="number" name="normal_amount" min="0" required>
+        </div>
 
-    <div class="amount-setting">
-        <label>😩 悲しい、、</label>
-        <input type="number" name="sad_amount" min="0" required>
-    </div>
+        <div class="amount-setting">
+            <label>😩 悲しい、、</label>
+            <input type="number" name="sad_amount" min="0" required>
+        </div>
 
-    <button type="submit">金額を決定</button>
-    {% if not amount %}
-        <p>最初に貯金する金額を設定してください</p>
-        <input type="number" name="amount" min="1" required class="amount-input">
         <button type="submit">金額を決定</button>
 
     {# 金額が設定済みの場合 #}
     {% else %}
-    <p>設定金額</p>
-    <ul>
-        <li>😄 ¥{{ amounts.happy }}</li>
-        <li>😐 ¥{{ amounts.normal }}</li>
-        <li>😩 ¥{{ amounts.sad }}</li>
-    </ul>
+        <p>設定金額</p>
+        <ul>
+            <li>😄 ¥{{ amounts.happy }}</li>
+            <li>😐 ¥{{ amounts.normal }}</li>
+            <li>😩 ¥{{ amounts.sad }}</li>
+        </ul>
 
-    <input type="hidden" name="happy_amount" value="{{ amounts.happy }}">
-    <input type="hidden" name="normal_amount" value="{{ amounts.normal }}">
-    <input type="hidden" name="sad_amount" value="{{ amounts.sad }}">
+        <input type="hidden" name="happy_amount" value="{{ amounts.happy }}">
+        <input type="hidden" name="normal_amount" value="{{ amounts.normal }}">
+        <input type="hidden" name="sad_amount" value="{{ amounts.sad }}">
 
-    <p>今日の気分を選んでください</p>
+        <p>今日の気分を選んでください</p>
 
-<div class="mood-buttons">
-    <button type="submit" name="mood" value="happy" class="mood-btn">😄</button>
-    <button type="submit" name="mood" value="normal" class="mood-btn">😐</button>
-    <button type="submit" name="mood" value="sad" class="mood-btn">😩</button>
-</div>
+        <div class="mood-buttons">
+            <button type="submit" name="mood" value="happy" class="mood-btn">😄</button>
+            <button type="submit" name="mood" value="normal" class="mood-btn">😐</button>
+            <button type="submit" name="mood" value="sad" class="mood-btn">😩</button>
+        </div>
 
+        {% if request.session.last_saved_amount %}
+            <p class="done-message">
+                ¥{{ request.session.last_saved_amount }} を貯金しました 🎉
+            </p>
+        {% endif %}
 
-{% if request.session.last_saved_amount %}
-<p class="done-message">
-    ¥{{ request.session.last_saved_amount }} を貯金しました 🎉
-</p>
-{% endif %}
-    <button type="submit" name="reset" value="1" class="reset-btn">
-        金額を変更する
-    </button>
-
-{% endif %}
+        <button type="submit" name="reset" value="1" class="reset-btn">
+            金額を変更する
+        </button>
+    {% endif %}
 </form>
 {% endblock %}
